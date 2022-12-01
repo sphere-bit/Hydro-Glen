@@ -12,15 +12,30 @@ public class MouseFollower : MonoBehaviour
         _canvas = transform.root.GetComponent<Canvas>();
         _itemSlot = GetComponentInChildren<UIItemSlot>();
     }
+    public void SetFollower(Sprite sprite, int quantity)
+    {
+        // Let 
+        _itemSlot.SetSlot(sprite, quantity);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
 
     }
-
-    // Update is called once per frame
     void Update()
     {
-
+        Vector2 position;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            (RectTransform)_canvas.transform, // canvas position adjustments
+            Input.mousePosition,
+            _canvas.worldCamera,
+            out position);
+        transform.position = _canvas.transform.TransformPoint(position);
+    }
+    public void Toggle(bool isOn)
+    {
+        Debug.Log($"Item toggled {isOn}");
+        gameObject.SetActive(isOn);
     }
 }

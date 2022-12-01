@@ -10,6 +10,8 @@ public class UIInventory : MonoBehaviour
     private RectTransform _contentPanel;
     [SerializeField]
     private UIItemDescription _itemDescription;
+    [SerializeField]
+    private MouseFollower _mouseFollower;
     private List<UIItemSlot> _itemSlots = new List<UIItemSlot>();
 
     public Sprite sprite;
@@ -18,6 +20,7 @@ public class UIInventory : MonoBehaviour
 
     private void Awake()
     {
+        _mouseFollower.Toggle(false);
         _itemDescription.ClearDescription();
     }
 
@@ -41,22 +44,20 @@ public class UIInventory : MonoBehaviour
     {
         throw new NotImplementedException("HandleShowItemActions");
     }
-
+    private void HandleBeginDrag(UIItemSlot obj)
+    {
+        _mouseFollower.Toggle(true);
+        _mouseFollower.SetFollower(sprite, quantity);
+    }
     private void HandleEndDrag(UIItemSlot obj)
     {
-        throw new NotImplementedException("HandleEndDrag");
+        _mouseFollower.Toggle(false);
+        _mouseFollower.SetFollower(sprite, quantity);
     }
-
     private void HandleSwap(UIItemSlot obj)
     {
         throw new NotImplementedException("HandleSwap");
     }
-
-    private void HandleBeginDrag(UIItemSlot obj)
-    {
-        throw new NotImplementedException("HandleBeginDrag");
-    }
-
     private void HandleItemSelection(UIItemSlot obj)
     {
         _itemDescription.SetDescription(sprite, title, description);
