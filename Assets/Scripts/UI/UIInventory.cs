@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,10 +16,42 @@ public class UIInventory : MonoBehaviour
         for (int i = 0; i < inventorySize; i++)
         {
             UIItemSlot uiItem = Instantiate(_itemSlot, Vector3.zero, Quaternion.identity);
+            uiItem.gameObject.SetActive(true);
             uiItem.transform.SetParent(_contentPanel);
             _itemSlots.Add(uiItem);
+            uiItem.OnItemLeftPointerClick += HandleItemSelection;
+            uiItem.OnItemBeginDrag += HandleBeginDrag;
+            uiItem.OnItemEndDrag += HandleEndDrag;
+            uiItem.OnItemDrop += HandleSwap;
+            uiItem.OnItemRightPointerClick += HandleShowItemActions;
         }
     }
+
+    private void HandleShowItemActions(UIItemSlot obj)
+    {
+        throw new NotImplementedException("HandleShowItemActions");
+    }
+
+    private void HandleEndDrag(UIItemSlot obj)
+    {
+        throw new NotImplementedException("HandleEndDrag");
+    }
+
+    private void HandleSwap(UIItemSlot obj)
+    {
+        throw new NotImplementedException("HandleSwap");
+    }
+
+    private void HandleBeginDrag(UIItemSlot obj)
+    {
+        throw new NotImplementedException("HandleBeginDrag");
+    }
+
+    private void HandleItemSelection(UIItemSlot obj)
+    {
+        Debug.Log(obj.name + " clicked!");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
