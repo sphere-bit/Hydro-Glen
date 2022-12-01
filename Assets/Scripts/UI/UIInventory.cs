@@ -8,8 +8,18 @@ public class UIInventory : MonoBehaviour
     private UIItemSlot _itemSlot;
     [SerializeField]
     private RectTransform _contentPanel;
-
+    [SerializeField]
+    private UIItemDescription _itemDescription;
     private List<UIItemSlot> _itemSlots = new List<UIItemSlot>();
+
+    public Sprite sprite;
+    public int quantity;
+    public string title, description;
+
+    private void Awake()
+    {
+        _itemDescription.ClearDescription();
+    }
 
     public void initUIInventory(int inventorySize)
     {
@@ -49,12 +59,16 @@ public class UIInventory : MonoBehaviour
 
     private void HandleItemSelection(UIItemSlot obj)
     {
+        _itemDescription.SetDescription(sprite, title, description);
+        _itemSlots[0].SelectSlot();
         Debug.Log(obj.name + " clicked!");
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        _itemDescription.ClearDescription();
+        _itemSlots[0].SetSlot(sprite, quantity);
     }
 
     // Update is called once per frame

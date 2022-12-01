@@ -18,6 +18,7 @@ public class GameMenuController : MonoBehaviour
             if (_gameMenuUI.isActiveAndEnabled == false)
             {
                 _gameMenuUI.gameObject.SetActive(true);
+
             }
             else
             {

@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class UIItemSlot : MonoBehaviour
 {
     [SerializeField]
-    private Image _itemImage;
+    private Image _slotImage;
     [SerializeField]
-    private TMP_Text _quantityText;
+    private TMP_Text _slotQuantity;
     [SerializeField]
-    private Image _borderImage;
+    private Image _selectedImage;
     public event Action<UIItemSlot> OnItemDrop;
     public event Action<UIItemSlot> OnItemBeginDrag, OnItemEndDrag;
     public event Action<UIItemSlot> OnItemRightPointerClick, OnItemLeftPointerClick;
@@ -22,25 +22,25 @@ public class UIItemSlot : MonoBehaviour
         ClearSlot();
         DeselectSlot();
     }
-    private void SelectSlot()
+    public void SelectSlot()
     {
-        _borderImage.enabled = true;
+        _selectedImage.enabled = true;
     }
-    private void DeselectSlot()
+    public void DeselectSlot()
     {
-        _borderImage.enabled = false;
+        _selectedImage.enabled = false;
     }
 
     public void SetSlot(Sprite itemSprite, int itemQuantity)
     {
-        _itemImage.gameObject.SetActive(true);
-        _itemImage.sprite = itemSprite;
-        _quantityText.text = itemQuantity.ToString();
+        _slotImage.gameObject.SetActive(true);
+        _slotImage.sprite = itemSprite;
+        _slotQuantity.text = itemQuantity.ToString();
         _isItemSlotEmpty = false;
     }
     private void ClearSlot()
     {
-        _itemImage.gameObject.SetActive(false);
+        _slotImage.gameObject.SetActive(false);
         _isItemSlotEmpty = true;
     }
     public void OnDrop()
