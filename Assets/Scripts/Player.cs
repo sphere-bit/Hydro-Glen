@@ -7,13 +7,13 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Vector2 movement;
-    [SerializeField] private PickUp pickUp;
+    [SerializeField] private ItemHolder itemHolder;
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        pickUp = GetComponent<PickUp>();
+        itemHolder = GetComponent<ItemHolder>();
     }
 
     // Update is called once per frame
@@ -24,25 +24,25 @@ public class Player : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
-        adjustPickUpDirection();
+        adjustitemHolderDirection();
 
         // transform.Translate(speed * Time.deltaTime * new Vector3(movement.x, movement.y, 0));
         // transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4, 3.84f), 0);
     }
 
-    private void adjustPickUpDirection()
+    private void adjustitemHolderDirection()
     {
         // Based on which direction the player is facing while idle, set the addition
         // direction vector of the picked up collectible.
         string spriteName = GetComponent<SpriteRenderer>().sprite.name;
         if (spriteName == "PlayerIdleDown")
-            pickUp.Direction = new Vector3(0, -1);
+            itemHolder.Direction = new Vector3(0, -1);
         else if (spriteName == "PlayerIdleUp")
-            pickUp.Direction = new Vector3(0, 1);
+            itemHolder.Direction = new Vector3(0, 1);
         else if (spriteName == "PlayerIdleRight")
-            pickUp.Direction = new Vector3(1, 0);
+            itemHolder.Direction = new Vector3(1, 0);
         else if (spriteName == "PlayerIdleLeft")
-            pickUp.Direction = new Vector3(-1, 0);
+            itemHolder.Direction = new Vector3(-1, 0);
     }
 
     void FixedUpdate()
@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
         if (change.sqrMagnitude > 0.1f)
         {
             // don't store 0 as a direction
-            pickUp.Direction = change.normalized;
+            itemHolder.Direction = change.normalized;
         }
 
         transform.Translate(speed * Time.fixedDeltaTime * change.normalized);

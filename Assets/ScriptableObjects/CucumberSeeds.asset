@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73643ee386791e9428e5eb5cf4396356, type: 3}
+  m_Name: CucumberSeeds
+  m_EditorClassIdentifier: 
+  id: 1
+  displayName: CucumberSeeds
+  details: Plant to soon harvest more cucumbers.
+  icon: {fileID: 21300000, guid: a0ebb8257c8aa184b9c2645956b7b455, type: 3}
+  maxStackSize: 99

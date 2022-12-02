@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Cucumber : MonoBehaviour
+public class Cucumber : ItemCollectible
 {
     public void Collect()
     {

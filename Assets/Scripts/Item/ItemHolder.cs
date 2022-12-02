@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
-public class PickUp : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+public class ItemHolder : MonoBehaviour
 {
-    public Transform holdPos;
+    public Transform heldPosition;
     public LayerMask pickUpMask;
     public Vector3 Direction { get; set; } // drop direction
+    private ItemData itemData;
     private GameObject itemHeld;
     [SerializeField] private float _throwSpeed;
     [SerializeField] private float _throwDistance;
@@ -28,11 +30,14 @@ public class PickUp : MonoBehaviour
             }
             else
             {
+                // Define the item that is picked up.
                 Collider2D pickUpItem = Physics2D.OverlapCircle(transform.position + Direction, .4f, pickUpMask);
+                print(pickUpItem.gameObject);
+
                 if (pickUpItem)
                 {
                     itemHeld = pickUpItem.gameObject;
-                    itemHeld.transform.position = holdPos.position;
+                    itemHeld.transform.position = heldPosition.position;
                     // Make item follow player
                     itemHeld.transform.parent = transform;
                     if (itemHeld.GetComponent<Rigidbody2D>())
@@ -50,12 +55,41 @@ public class PickUp : MonoBehaviour
                 itemHeld = null;
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (itemHeld)
+            {
+                StartCoroutine(StashItem(itemHeld));
+                itemHeld = null;
+            }
+        }
+    }
+
+    IEnumerator StashItem(GameObject item)
+    {
+        var inventory = transform.GetComponent<InventoryHolder>();
+        if (!inventory)
+        {
+            yield return null;
+        }
+
+        ItemCollectible collectible = item.GetComponent<ItemCollectible>();
+        print(collectible);
+        itemData = collectible.ItemData;
+
+        if (inventory.Inventory.hasItemToAdd(itemData, 1))
+        {
+            print("itemData of " + collectible + " " + itemData);
+            Destroy(item);
+            yield return null;
+        }
     }
 
     IEnumerator ThrowItem(GameObject item)
     {
         Vector3 startPos = item.transform.position;
         Vector3 endPos = transform.position + Direction * _throwDistance + new Vector3(0, -.5f, 0);
+        // Detach item from player
         item.transform.parent = null;
 
         // To allow animation to fully play

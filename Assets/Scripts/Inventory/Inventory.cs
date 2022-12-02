@@ -1,6 +1,32 @@
-// using System;
-// using System.Collections.Generic;
-// using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class Inventory
+{
+    // System
+    [SerializeField] private List<Slot> slots;
+    public List<Slot> Slots => slots;
+    public int Size => slots.Count;
+    public UnityAction<Slot> OnInventorySlotChanged;
+
+    public Inventory(int size)
+    {
+        slots = new List<Slot>(size);
+
+        for (int i = 0; i < size; i++)
+        {
+            slots.Add(new Slot());
+        }
+    }
+
+    public bool hasItemToAdd(ItemData itemData, int amount)
+    {
+        slots[0] = new Slot(itemData, amount);
+        return true;
+    }
+}
 
 // public class Inventory : MonoBehaviour
 // {

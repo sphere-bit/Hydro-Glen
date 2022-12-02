@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8813967845600922486}
   m_Layer: 3
-  m_Name: HoldPos
+  m_Name: HeldPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,9 +44,11 @@ GameObject:
   - component: {fileID: 8813967846185962256}
   - component: {fileID: 8813967846185962259}
   - component: {fileID: 8813967846185962258}
-  - component: {fileID: 8813967846185962269}
+  - component: {fileID: 6652750646147824787}
+  - component: {fileID: 1944531858}
+  - component: {fileID: 1944531859}
   m_Layer: 0
-  m_Name: 'Player '
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +61,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8813967846185962478}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -187,7 +189,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8813967846185962269
+--- !u!114 &6652750646147824787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,12 +198,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 8813967846185962478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd7ee0c3cba9e014baadf500dcc111bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e0f1d8b9a9ba4e4c8dd08d3786a3e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdPos: {fileID: 8813967845600922486}
+  size: 10
+  inventory:
+    slots: []
+--- !u!114 &1944531858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813967846185962478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d92592867240c49b4fc303ef4b422c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heldPosition: {fileID: 8813967845600922486}
   pickUpMask:
     serializedVersion: 2
     m_Bits: 8
-  _throwSpeed: 0.005
+  _throwSpeed: 0.4
   _throwDistance: 5
+--- !u!114 &1944531859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813967846185962478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d89da9cdc49cac498f83ea95ba77e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  animator: {fileID: 8813967846185962258}
+  spriteRenderer: {fileID: 8813967846185962262}
+  movement: {x: 0, y: 0}
+  itemHolder: {fileID: 1944531858}

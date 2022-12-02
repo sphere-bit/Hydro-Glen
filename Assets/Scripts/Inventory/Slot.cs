@@ -1,9 +1,54 @@
-// using System;
-// using TMPro;
-// using UnityEngine;
-// using UnityEngine.EventSystems;
-// using UnityEngine.UI;
+using UnityEngine;
 
+[System.Serializable]
+public class Slot
+{
+    [SerializeField] private ItemData item;
+    public ItemData Item => item;
+    [SerializeField] private int stackSize; // How many items we have currently.
+    public int StackSize => stackSize;
+    public Slot(ItemData item, int stackSize)
+    {
+        this.item = item;
+        this.stackSize = stackSize;
+    }
+
+    public Slot()
+    {
+        Clear();
+    }
+
+    public void Clear()
+    {
+        item = null;
+        stackSize = -1;
+    }
+
+    public bool hasRemainingSpace(int addAmount, out int amountRemaining)
+    {
+        amountRemaining = item.maxStackSize - stackSize;
+        return hasRemainingSpace(addAmount);
+    }
+
+    public bool hasRemainingSpace(int addAmount)
+    {
+        if (stackSize + addAmount <= item.maxStackSize)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void AddToStack(int amount)
+    {
+        stackSize += amount;
+    }
+
+    public void RemoveFromStack(int amount)
+    {
+        stackSize -= amount;
+    }
+}
 // public class Slot : IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler
 // {
 //     [SerializeField] private Image image;
