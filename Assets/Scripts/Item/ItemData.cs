@@ -23,6 +23,6 @@ public class ItemData : ScriptableObject
 
     public override string ToString()
     {
-        return "[id]:" + id.ToString() + ", [displayName]:" + displayName.ToString();
+        return "[id] " + id.ToString() + " [displayName] " + displayName.ToString() + " [details] " + details.ToString() + " [icon] " + icon.ToString() + " [maxStackSize] " + maxStackSize.ToString();
     }
 }

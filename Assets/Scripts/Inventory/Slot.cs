@@ -3,16 +3,22 @@ using UnityEngine;
 [System.Serializable]
 public class Slot
 {
-    [SerializeField] private ItemData item;
-    public ItemData Item => item;
+    // A slot is list which has space.
+    [SerializeField] private ItemData itemData;
+    public ItemData ItemData => itemData;
     [SerializeField] private int stackSize; // How many items we have currently.
     public int StackSize => stackSize;
-    public Slot(ItemData item, int stackSize)
+    public Slot(ItemData itemData, int stackSize)
     {
-        this.item = item;
+        this.itemData = itemData;
         this.stackSize = stackSize;
     }
 
+    public void Update(ItemData itemData, int stackSize)
+    {
+        this.itemData = itemData;
+        this.stackSize = stackSize;
+    }
     public Slot()
     {
         Clear();
@@ -20,31 +26,35 @@ public class Slot
 
     public void Clear()
     {
-        item = null;
+        itemData = null;
         stackSize = -1;
     }
 
-    public bool hasRemainingSpace(int addAmount, out int amountRemaining)
+    public bool isAvailable(int addAmount, out int amountRemaining)
     {
-        amountRemaining = item.maxStackSize - stackSize;
-        return hasRemainingSpace(addAmount);
+        amountRemaining = itemData.maxStackSize - stackSize;
+        return isAvailable(addAmount);
     }
 
-    public bool hasRemainingSpace(int addAmount)
+    public bool isAvailable(int addAmount)
     {
-        if (stackSize + addAmount <= item.maxStackSize)
+        if (stackSize + addAmount <= itemData.maxStackSize)
         {
+            Debug.Log(addAmount + " added");
+            Debug.Log(stackSize + " stackSize");
+            Debug.Log(addAmount + " addAmount");
+            Debug.Log(itemData.maxStackSize + " itemData.maxStackSize");
             return true;
         }
         return false;
     }
 
-    public void AddToStack(int amount)
+    public void AddToSpace(int amount)
     {
         stackSize += amount;
     }
 
-    public void RemoveFromStack(int amount)
+    public void RemoveFromSpace(int amount)
     {
         stackSize -= amount;
     }

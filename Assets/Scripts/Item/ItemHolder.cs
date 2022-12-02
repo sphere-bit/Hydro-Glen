@@ -19,32 +19,11 @@ public class ItemHolder : MonoBehaviour
         {
             if (itemHeld)
             {
-                // Drop item infront of the player and subtract (for at their feet).
-                itemHeld.transform.position = transform.position + new Vector3(0, -.5f, 0) + Direction;
-                // Remove item from player
-                itemHeld.transform.parent = null;
-                if (itemHeld.GetComponent<Rigidbody2D>())
-                    itemHeld.GetComponent<Rigidbody2D>().simulated = true;
-                // Toggle itemHeld.
-                itemHeld = null;
+                DropItem();
             }
             else
             {
-                // Define the item that is picked up.
-                Collider2D pickUpItem = Physics2D.OverlapCircle(transform.position + Direction, .4f, pickUpMask);
-                print(pickUpItem.gameObject);
-
-                if (pickUpItem)
-                {
-                    itemHeld = pickUpItem.gameObject;
-                    itemHeld.transform.position = heldPosition.position;
-                    // Make item follow player
-                    itemHeld.transform.parent = transform;
-                    if (itemHeld.GetComponent<Rigidbody2D>())
-                    {
-                        itemHeld.GetComponent<Rigidbody2D>().simulated = false;
-                    }
-                }
+                PickUpItem();
             }
         }
         else if (Input.GetKeyDown(KeyCode.Q))
@@ -65,6 +44,36 @@ public class ItemHolder : MonoBehaviour
         }
     }
 
+    private void PickUpItem()
+    {
+        // Define the item that is picked up.
+        Collider2D pickUpItem = Physics2D.OverlapCircle(transform.position + Direction, .4f, pickUpMask);
+
+        if (pickUpItem)
+        {
+            itemHeld = pickUpItem.gameObject;
+            itemHeld.transform.position = heldPosition.position;
+            // Make item follow player
+            itemHeld.transform.parent = transform;
+            if (itemHeld.GetComponent<Rigidbody2D>())
+            {
+                itemHeld.GetComponent<Rigidbody2D>().simulated = false;
+            }
+        }
+    }
+
+    private void DropItem()
+    {
+        // Drop item infront of the player and subtract (for at their feet).
+        itemHeld.transform.position = transform.position + new Vector3(0, -.5f, 0) + Direction;
+        // Remove item from player
+        itemHeld.transform.parent = null;
+        if (itemHeld.GetComponent<Rigidbody2D>())
+            itemHeld.GetComponent<Rigidbody2D>().simulated = true;
+        // Toggle itemHeld.
+        itemHeld = null;
+    }
+
     IEnumerator StashItem(GameObject item)
     {
         var inventory = transform.GetComponent<InventoryHolder>();
@@ -77,10 +86,17 @@ public class ItemHolder : MonoBehaviour
         print(collectible);
         itemData = collectible.ItemData;
 
-        if (inventory.Inventory.hasItemToAdd(itemData, 1))
+        if (inventory.Inventory.HasItemToAdd(itemData, 1))
         {
-            print("itemData of " + collectible + " " + itemData);
+            print(itemData);
             Destroy(item);
+            yield return null;
+        }
+        // No free space found. Drop the item back onto the ground.
+        else
+        {
+            Debug.Log("Inventory's full!");
+            DropItem();
             yield return null;
         }
     }

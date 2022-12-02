@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,10 +22,48 @@ public class Inventory
         }
     }
 
-    public bool hasItemToAdd(ItemData itemData, int amount)
+    public bool HasItemToAdd(ItemData itemData, int amount)
     {
-        slots[0] = new Slot(itemData, amount);
-        return true;
+        Debug.Log(itemData);
+        // Check whether item exists in inventory
+        if (ContainsItem(itemData, out List<Slot> slot))
+        {
+            foreach (var space in slot)
+            {
+                if (space.isAvailable(amount))
+                {
+                    Debug.Log("Space was available. Adding ...");
+                    space.AddToSpace(amount);
+                    OnInventorySlotChanged?.Invoke(space);
+                    return true;
+                }
+            }
+        }
+        // Gets the first available slot
+        if (HasFreeSlot(out Slot freeSlot))
+        {
+            Debug.Log("Inventory: HasFreeSlot(out Slot freeSlot)");
+            freeSlot.Update(itemData, amount);
+            OnInventorySlotChanged?.Invoke(freeSlot);
+            return true;
+        }
+        // slots[0] = new Slot(itemData, amount);
+        return false;
+    }
+
+    public bool ContainsItem(ItemData itemData, out List<Slot> slot)
+    {
+        slot = slots.Where(i => i.ItemData == itemData).ToList();
+        return slot.Count >= 1 ? true : false;
+    }
+
+    public bool HasFreeSlot(out Slot freeSlot)
+    {
+        // find the first slot where the item data is null
+        freeSlot = slots.FirstOrDefault(i => i.ItemData == null);
+        // free slot is null when a free slot hasn't been found.
+        // free slot is not null when a free slot has been found.
+        return freeSlot == null ? false : true;
     }
 }
 
