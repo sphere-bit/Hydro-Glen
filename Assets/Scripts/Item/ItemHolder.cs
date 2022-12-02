@@ -79,11 +79,11 @@ public class ItemHolder : MonoBehaviour
         var inventory = transform.GetComponent<InventoryHolder>();
         if (!inventory)
         {
+            Debug.Log("No inventory found.");
             yield return null;
         }
 
         ItemCollectible collectible = item.GetComponent<ItemCollectible>();
-        print(collectible);
         itemData = collectible.ItemData;
 
         if (inventory.Inventory.HasItemToAdd(itemData, 1))

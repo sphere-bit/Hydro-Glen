@@ -1,7 +1,18 @@
-// using UnityEngine;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
-// public class MouseFollower : MonoBehaviour
-// {
+public class MouseItemData : MonoBehaviour
+{
+    public Image itemSprite;
+    public TextMeshProUGUI itemCount;
+
+    private void Awake()
+    {
+        itemSprite.color = Color.clear;
+        itemCount.text = "";
+    }
+}
 //     [SerializeField]
 //     private Canvas _canvas;
 
