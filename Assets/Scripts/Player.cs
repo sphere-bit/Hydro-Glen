@@ -1,38 +1,32 @@
 using UnityEngine;
 
+[System.Serializable]
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed;
-    // [SerializeField]
-    // private Rigidbody2D rb;
-    [SerializeField]
-    private Animator _animator;
-    [SerializeField]
-    private SpriteRenderer _spriteRenderer;
-    [SerializeField]
-    private Vector2 _movement;
-    [SerializeField]
-    private PickUp _pickUp;
+    [SerializeField] private float speed;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Vector2 movement;
+    [SerializeField] private PickUp pickUp;
 
     // Start is called before the first frame update
     void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _pickUp = GetComponent<PickUp>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        pickUp = GetComponent<PickUp>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        _movement.x = Input.GetAxis("Horizontal");
-        _movement.y = Input.GetAxis("Vertical");
-        _animator.SetFloat("Horizontal", _movement.x);
-        _animator.SetFloat("Vertical", _movement.y);
-        _animator.SetFloat("Speed", _movement.sqrMagnitude);
+        movement.x = Input.GetAxis("Horizontal");
+        movement.y = Input.GetAxis("Vertical");
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Speed", movement.sqrMagnitude);
         adjustPickUpDirection();
 
-        // transform.Translate(_speed * Time.deltaTime * new Vector3(_movement.x, _movement.y, 0));
+        // transform.Translate(speed * Time.deltaTime * new Vector3(movement.x, movement.y, 0));
         // transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4, 3.84f), 0);
     }
 
@@ -42,25 +36,25 @@ public class Player : MonoBehaviour
         // direction vector of the picked up collectible.
         string spriteName = GetComponent<SpriteRenderer>().sprite.name;
         if (spriteName == "PlayerIdleDown")
-            _pickUp.Direction = new Vector3(0, -1);
+            pickUp.Direction = new Vector3(0, -1);
         else if (spriteName == "PlayerIdleUp")
-            _pickUp.Direction = new Vector3(0, 1);
+            pickUp.Direction = new Vector3(0, 1);
         else if (spriteName == "PlayerIdleRight")
-            _pickUp.Direction = new Vector3(1, 0);
+            pickUp.Direction = new Vector3(1, 0);
         else if (spriteName == "PlayerIdleLeft")
-            _pickUp.Direction = new Vector3(-1, 0);
+            pickUp.Direction = new Vector3(-1, 0);
     }
 
     void FixedUpdate()
     {
-        Vector2 change = new Vector2(_movement.x, _movement.y);
+        Vector2 change = new Vector2(movement.x, movement.y);
 
         if (change.sqrMagnitude > 0.1f)
         {
             // don't store 0 as a direction
-            _pickUp.Direction = change.normalized;
+            pickUp.Direction = change.normalized;
         }
 
-        transform.Translate(_speed * Time.fixedDeltaTime * change.normalized);
+        transform.Translate(speed * Time.fixedDeltaTime * change.normalized);
     }
 }

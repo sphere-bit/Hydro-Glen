@@ -4,11 +4,11 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     [SerializeField]
-    private Image _healthBar;
+    private Image healthBar;
     [SerializeField]
-    private float _healthRem = 100;
+    private float currHealth = 100;
     [SerializeField]
-    private float _healthMax = 100;
+    private float maxHealth = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
     [System.Obsolete]
     void Update()
     {
-        if (_healthRem <= 0)
+        if (currHealth <= 0)
         {
             Application.LoadLevel(Application.loadedLevel);
         }
@@ -37,14 +37,14 @@ public class Health : MonoBehaviour
 
     public void playerDamage(float damage)
     {
-        _healthRem -= damage;
-        _healthBar.fillAmount = _healthRem / _healthMax;
+        currHealth -= damage;
+        healthBar.fillAmount = currHealth / maxHealth;
     }
 
     public void playerHeal(float restore)
     {
-        _healthRem += restore;
-        _healthRem = Mathf.Clamp(_healthRem, 0, _healthMax);
-        _healthBar.fillAmount = _healthRem / _healthMax;
+        currHealth += restore;
+        currHealth = Mathf.Clamp(currHealth, 0, maxHealth);
+        healthBar.fillAmount = currHealth / maxHealth;
     }
 }

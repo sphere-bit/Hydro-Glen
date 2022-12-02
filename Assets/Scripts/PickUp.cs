@@ -1,16 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
 public class PickUp : MonoBehaviour
 {
     public Transform holdPos;
     public LayerMask pickUpMask;
     public Vector3 Direction { get; set; } // drop direction
     private GameObject itemHeld;
-    [SerializeField]
-    private float _throwSpeed;
-    [SerializeField]
-    private float _throwDistance;
+    [SerializeField] private float _throwSpeed;
+    [SerializeField] private float _throwDistance;
 
     void Update()
     {
