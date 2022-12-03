@@ -6,12 +6,9 @@ using UnityEngine.UI;
 
 public class MouseItemData : MonoBehaviour
 {
-    private string slotId;
     public Image itemSprite;
     public TextMeshProUGUI itemCount;
     public Slot assignedSlot;
-
-    public string SlotId => slotId;
 
     public void UpdateMouseSlot(Slot slot)
     {
@@ -38,6 +35,7 @@ public class MouseItemData : MonoBehaviour
             // Check where primary (left) mouse button is clicked
             if (Input.GetMouseButton(0) && !IsPointerOverlapUIObject())
             {
+                Debug.Log("Primary left click was pressed and no overlapping UI object.");
                 ClearSlot();
             }
         }

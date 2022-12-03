@@ -8,15 +8,15 @@ public class Slot
     [SerializeField] private ItemData itemData;
     public ItemData ItemData => itemData;
     [SerializeField] private int stackSize; // How many items we have currently.
-    private String slotId;
-    public String SlotId => slotId;
     public int StackSize => stackSize;
-    public Slot(String slotId, ItemData itemData, int stackSize)
+
+
+    public Slot(ItemData itemData, int stackSize)
     {
-        this.slotId = generateId();
         this.itemData = itemData;
         this.stackSize = stackSize;
     }
+
     public string generateId()
     {
         return $"Slot-{Guid.NewGuid().ToString("N")}";
@@ -28,7 +28,6 @@ public class Slot
     }
     public Slot()
     {
-        slotId = generateId();
         Clear();
     }
 
@@ -65,7 +64,6 @@ public class Slot
 
     internal void AssignItem(Slot slot)
     {
-        slot.slotId = this.slotId;
         if (itemData == slot.ItemData)
         {
             // Combine
@@ -88,9 +86,29 @@ public class Slot
             splitStack = null;
             return false;
         }
+
         int halfStack = Mathf.RoundToInt(stackSize / 2);
+        Debug.Log($"prev {stackSize}");
         RemoveFromSpace(halfStack);
-        splitStack = new Slot(slotId, itemData, halfStack);
+        Debug.Log($"curr {stackSize}");
+        splitStack = new Slot(itemData, halfStack);
+
+        return true;
+    }
+
+    internal bool OnSingleSplitStack(out Slot singleSplitStack)
+    {
+        if (stackSize <= 1)
+        {
+            singleSplitStack = null;
+            return false;
+        }
+
+        Debug.Log($"prev {stackSize}");
+        RemoveFromSpace(1);
+        Debug.Log($"curr {stackSize}");
+        singleSplitStack = new Slot(itemData, 1);
+
         return true;
     }
 }
@@ -144,14 +162,14 @@ public class Slot
 //         //     print("Slot OnPointerClick: Empty slot.");
 //         //     return;
 //         // }
-//         if (pointerData.button == PointerEventData.InputButton.Right)
-//         {
-//             OnItemRightPointerClick?.Invoke(this);
-//         }
-//         else
-//         {
-//             OnItemLeftPointerClick?.Invoke(this);
-//         }
+// if (pointerData.button == PointerEventData.InputButton.Right)
+// {
+//     OnItemRightPointerClick?.Invoke(this);
+// }
+// else
+// {
+//     OnItemLeftPointerClick?.Invoke(this);
+// }
 //     }
 
 //     public void OnBeginDrag(PointerEventData eventData)

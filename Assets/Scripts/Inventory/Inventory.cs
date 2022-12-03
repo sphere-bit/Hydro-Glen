@@ -72,7 +72,6 @@ public class Inventory
     public bool HasFreeSlotExcept(Slot exceptSlot, out Slot freeSlot)
     {
         freeSlot = slots.FirstOrDefault(i => i.ItemData == null && slots[slots.IndexOf(i)] != slots[slots.IndexOf(exceptSlot)]);
-        Debug.Log(slots.IndexOf(freeSlot));
         return freeSlot == null ? false : true;
     }
 }

@@ -1,8 +1,9 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlotUI : MonoBehaviour
+public class SlotUI : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image itemSprite;
     [SerializeField] private TextMeshProUGUI itemCount;
@@ -16,17 +17,18 @@ public class SlotUI : MonoBehaviour
         ClearSlot();
 
         button = GetComponent<Button>();
-        button?.onClick.AddListener(OnUISlotClick);
         parentInventoryDisplay = transform.parent.GetComponent<InventoryDisplay>();
     }
-
-    private void OnUISlotClick()
+    private void OnUISlotLeftClick()
     {
         // Access display class function
-        // throw new NotImplementedException("OnUISlotClick()");
-        parentInventoryDisplay?.OnSlotClicked(this);
+        parentInventoryDisplay?.OnSlotLeftClicked(this);
     }
-
+    private void OnUISlotRightClick()
+    {
+        // Access display class function
+        parentInventoryDisplay?.OnSlotRightClicked(this);
+    }
     public void Init(Slot slot)
     {
         assignedSlot = slot;
@@ -68,5 +70,17 @@ public class SlotUI : MonoBehaviour
         itemSprite.sprite = null;
         itemSprite.color = Color.clear;
         itemCount.text = "";
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            OnUISlotLeftClick();
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            OnUISlotRightClick();
+        }
     }
 }

@@ -6,7 +6,6 @@ public abstract class InventoryDisplay : MonoBehaviour
     [SerializeField] MouseItemData mouseInventoryItem;
     protected Inventory inventory;
     public Dictionary<SlotUI, Slot> slotDict;
-
     public Inventory Inventory => inventory;
     public Dictionary<SlotUI, Slot> SlotDict => slotDict;
 
@@ -24,10 +23,55 @@ public abstract class InventoryDisplay : MonoBehaviour
     protected virtual void Start()
     {
     }
-
-    public void OnSlotClicked(SlotUI clickedUISlot)
+    internal void OnSlotRightClicked(SlotUI clickedUISlot)
     {
+        // Handle splitting. If right + hold shift then split one only.
+        bool isShiftKey = Input.GetKey(KeyCode.LeftShift);
 
+        // Split mouse slot
+        if (clickedUISlot.AssignedSlot.ItemData == null && mouseInventoryItem.assignedSlot.ItemData != null)
+        {
+            // Don't stack on another item and not on the same clicked slot.
+            if (inventory.HasFreeSlotExcept(clickedUISlot.AssignedSlot, out Slot freeSlot))
+            {
+                if (isShiftKey && mouseInventoryItem.assignedSlot.OnSingleSplitStack(out Slot singleSplitStack))
+                {
+                    Debug.Log("single split");
+                    freeSlot.Update(singleSplitStack.ItemData, singleSplitStack.StackSize);
+                    inventory.OnInventorySlotChanged?.Invoke(freeSlot);
+                    // Update mouse with amount remaining after giving to the clicked slot.
+                    var newSlot = new Slot(mouseInventoryItem.assignedSlot.ItemData, mouseInventoryItem.assignedSlot.StackSize);
+                    mouseInventoryItem.ClearSlot();
+
+                    mouseInventoryItem.UpdateMouseSlot(newSlot);
+                    clickedUISlot.UpdateSlotUI();
+                    return;
+                }
+
+                if (!isShiftKey && mouseInventoryItem.assignedSlot.OnSplitStack(out Slot splitStack))
+                {
+                    // Move the split stack to a free slot only 
+                    Debug.Log("half split");
+
+                    // Fill new slot with splitStack
+                    freeSlot.Update(splitStack.ItemData, splitStack.StackSize);
+                    inventory.OnInventorySlotChanged?.Invoke(freeSlot);
+
+                    // Update mouse with amount remaining after giving to the clicked slot.
+                    var newSlot = new Slot(mouseInventoryItem.assignedSlot.ItemData, mouseInventoryItem.assignedSlot.StackSize);
+                    mouseInventoryItem.ClearSlot();
+
+                    mouseInventoryItem.UpdateMouseSlot(newSlot);
+                    clickedUISlot.UpdateSlotUI();
+                    return;
+                }
+            }
+        }
+    }
+
+    internal void OnSlotLeftClicked(SlotUI clickedUISlot)
+    {
+        Debug.Log("Left-click pressed");
         // Clicked slot (assigned slot) has an item; mouse doesn't have an item:
         if (clickedUISlot.AssignedSlot.ItemData != null && mouseInventoryItem.assignedSlot.ItemData == null)
         {
@@ -37,34 +81,6 @@ public abstract class InventoryDisplay : MonoBehaviour
             return;
         }
 
-        // Check whether clicked slot is the same as the assigned
-        if (clickedUISlot.AssignedSlot.SlotId == mouseInventoryItem.assignedSlot.SlotId)
-        {
-            if (clickedUISlot.AssignedSlot.ItemData == null && mouseInventoryItem.assignedSlot.ItemData != null)
-            {
-                // Inventory cloneInventory = new Inventory(inventory.Slots, inventory.Size);
-                // cloneInventory.Slots.Remove(clickedUISlot.AssignedSlot);
-
-                // Split mouse slot
-                // Don't stack on another item and not on the same clicked slot.
-                if (inventory.HasFreeSlotExcept(clickedUISlot.AssignedSlot, out Slot freeSlot))
-                {
-                    // free slot should not be the same as clicked slot.
-                    Debug.Log($"clickedUISlot.AssignedSlot.id:{clickedUISlot.AssignedSlot.SlotId}, freeSlot.id:{freeSlot.SlotId}");
-                    if (mouseInventoryItem.assignedSlot.OnSplitStack(out Slot splitStack))
-                    {
-                        // mouseInventoryItem.UpdateMouseSlot(splitStack);
-
-                        // Move the split stack to a free slot only 
-                        if (splitStack != null)
-                        {
-                            freeSlot.Update(splitStack.ItemData, splitStack.StackSize);
-                            inventory.OnInventorySlotChanged?.Invoke(freeSlot);
-                        }
-                    }
-                }
-            }
-        }
         // Clicked slot doesn't have an item; mouse has an item:
         if (clickedUISlot.AssignedSlot.ItemData == null && mouseInventoryItem.assignedSlot.ItemData != null)
         {
@@ -111,7 +127,7 @@ public abstract class InventoryDisplay : MonoBehaviour
                     clickedUISlot.UpdateSlotUI();
 
                     // Update mouse with amount remaining after giving to the clicked slot.
-                    var newSlot = new Slot(mouseInventoryItem.SlotId, mouseInventoryItem.assignedSlot.ItemData, mouseAmountRemaining);
+                    var newSlot = new Slot(mouseInventoryItem.assignedSlot.ItemData, mouseAmountRemaining);
                     mouseInventoryItem.ClearSlot();
                     mouseInventoryItem.UpdateMouseSlot(newSlot);
                     return;
@@ -129,7 +145,7 @@ public abstract class InventoryDisplay : MonoBehaviour
     private void SwapSlot(SlotUI clickedUISlot)
     {
         // Use bubble swap to swap clicked and assigned slots.
-        var cloneSlot = new Slot(mouseInventoryItem.SlotId, mouseInventoryItem.assignedSlot.ItemData, mouseInventoryItem.assignedSlot.StackSize);
+        var cloneSlot = new Slot(mouseInventoryItem.assignedSlot.ItemData, mouseInventoryItem.assignedSlot.StackSize);
         mouseInventoryItem.ClearSlot();
 
         // Pass in the clicked slot's data
@@ -139,4 +155,6 @@ public abstract class InventoryDisplay : MonoBehaviour
         clickedUISlot.AssignedSlot.AssignItem(cloneSlot);
         clickedUISlot.UpdateSlotUI();
     }
+
+
 }
