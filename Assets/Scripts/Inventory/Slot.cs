@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,13 +8,19 @@ public class Slot
     [SerializeField] private ItemData itemData;
     public ItemData ItemData => itemData;
     [SerializeField] private int stackSize; // How many items we have currently.
+    private String slotId;
+    public String SlotId => slotId;
     public int StackSize => stackSize;
-    public Slot(ItemData itemData, int stackSize)
+    public Slot(String slotId, ItemData itemData, int stackSize)
     {
+        this.slotId = generateId();
         this.itemData = itemData;
         this.stackSize = stackSize;
     }
-
+    public string generateId()
+    {
+        return $"Slot-{Guid.NewGuid().ToString("N")}";
+    }
     public void Update(ItemData itemData, int stackSize)
     {
         this.itemData = itemData;
@@ -21,6 +28,7 @@ public class Slot
     }
     public Slot()
     {
+        slotId = generateId();
         Clear();
     }
 
@@ -40,10 +48,6 @@ public class Slot
     {
         if (stackSize + addAmount <= itemData.maxStackSize)
         {
-            Debug.Log(addAmount + " added");
-            Debug.Log(stackSize + " stackSize");
-            Debug.Log(addAmount + " addAmount");
-            Debug.Log(itemData.maxStackSize + " itemData.maxStackSize");
             return true;
         }
         return false;
@@ -61,6 +65,7 @@ public class Slot
 
     internal void AssignItem(Slot slot)
     {
+        slot.slotId = this.slotId;
         if (itemData == slot.ItemData)
         {
             // Combine
@@ -74,6 +79,19 @@ public class Slot
             AddToSpace(slot.stackSize);
         }
         // throw new NotImplementedException();
+    }
+
+    internal bool OnSplitStack(out Slot splitStack)
+    {
+        if (stackSize <= 1)
+        {
+            splitStack = null;
+            return false;
+        }
+        int halfStack = Mathf.RoundToInt(stackSize / 2);
+        RemoveFromSpace(halfStack);
+        splitStack = new Slot(slotId, itemData, halfStack);
+        return true;
     }
 }
 // public class Slot : IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler

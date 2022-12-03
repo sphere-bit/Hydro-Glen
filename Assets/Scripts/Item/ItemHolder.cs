@@ -88,7 +88,7 @@ public class ItemHolder : MonoBehaviour
 
         if (inventory.Inventory.HasItemToAdd(itemData, 1))
         {
-            print(itemData);
+            // print(itemData);
             Destroy(item);
             yield return null;
         }

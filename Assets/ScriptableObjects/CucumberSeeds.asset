@@ -16,4 +16,4 @@ MonoBehaviour:
   displayName: CucumberSeeds
   details: Plant to soon harvest more cucumbers.
   icon: {fileID: 21300000, guid: a0ebb8257c8aa184b9c2645956b7b455, type: 3}
-  maxStackSize: 99
+  maxStackSize: 9

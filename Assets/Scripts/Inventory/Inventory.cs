@@ -22,9 +22,14 @@ public class Inventory
         }
     }
 
+    public Inventory(List<Slot> slots, int size)
+    {
+        this.slots = slots;
+    }
+
     public bool HasItemToAdd(ItemData itemData, int amount)
     {
-        Debug.Log(itemData);
+        // Debug.Log(itemData);
         // Check whether item exists in inventory
         if (ContainsItem(itemData, out List<Slot> slot))
         {
@@ -32,7 +37,6 @@ public class Inventory
             {
                 if (space.isAvailable(amount))
                 {
-                    Debug.Log("Space was available. Adding ...");
                     space.AddToSpace(amount);
                     OnInventorySlotChanged?.Invoke(space);
                     return true;
@@ -42,7 +46,6 @@ public class Inventory
         // Gets the first available slot
         if (HasFreeSlot(out Slot freeSlot))
         {
-            Debug.Log("Inventory: HasFreeSlot(out Slot freeSlot)");
             freeSlot.Update(itemData, amount);
             OnInventorySlotChanged?.Invoke(freeSlot);
             return true;
@@ -63,6 +66,13 @@ public class Inventory
         freeSlot = slots.FirstOrDefault(i => i.ItemData == null);
         // free slot is null when a free slot hasn't been found.
         // free slot is not null when a free slot has been found.
+        return freeSlot == null ? false : true;
+    }
+
+    public bool HasFreeSlotExcept(Slot exceptSlot, out Slot freeSlot)
+    {
+        freeSlot = slots.FirstOrDefault(i => i.ItemData == null && slots[slots.IndexOf(i)] != slots[slots.IndexOf(exceptSlot)]);
+        Debug.Log(slots.IndexOf(freeSlot));
         return freeSlot == null ? false : true;
     }
 }
