@@ -25,8 +25,27 @@ public abstract class InventoryDisplay : MonoBehaviour
     {
     }
 
-    public void OnSlotClicked(SlotUI clickedSlot)
+    public void OnSlotClicked(SlotUI clickedUISlot)
     {
-        Debug.Log("OnSlotClicked(SlotUI clickedSlot)");
+        // Clicked slot (assigned slot) has an item; mouse doesn't have an item:
+        if (clickedUISlot.AssignedSlot.ItemData != null && mouseInventoryItem.assignedSlot.ItemData == null)
+        {
+            // pick up the item of the slot.
+            mouseInventoryItem.UpdateMouseSlot(clickedUISlot.AssignedSlot);
+            clickedUISlot.ClearSlot();
+            return;
+        }
+
+        // Clicked slot doesn't have an item; mouse has an item:
+        if (clickedUISlot.AssignedSlot.ItemData == null && mouseInventoryItem.assignedSlot.ItemData != null)
+        {
+            Debug.Log("Clicked slot doesn't have an item; mouse has an item:");
+            // place the clicked slot into the empty slot. Remove from mouse and fill slot.
+            clickedUISlot.AssignedSlot.AssignItem(mouseInventoryItem.assignedSlot);
+            clickedUISlot.UpdateSlotUI();
+
+            mouseInventoryItem.ClearSlot();
+        }
+        // Debug.Log("OnSlotClicked(clickedUISlot clickedSlot)");
     }
 }

@@ -58,6 +58,23 @@ public class Slot
     {
         stackSize -= amount;
     }
+
+    internal void AssignItem(Slot slot)
+    {
+        if (itemData == slot.ItemData)
+        {
+            // Combine
+            AddToSpace(slot.stackSize);
+        }
+        else
+        {
+            // If items are different, swap with mouse's slot.
+            itemData = slot.itemData;
+            stackSize = 0;
+            AddToSpace(slot.stackSize);
+        }
+        // throw new NotImplementedException();
+    }
 }
 // public class Slot : IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler
 // {

@@ -42,7 +42,6 @@ public class SlotUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("Cleared!");
             ClearSlot();
         }
 
@@ -52,7 +51,6 @@ public class SlotUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("Cleared! slot.StackSize <= 1");
             ClearSlot();
         }
     }
@@ -64,7 +62,7 @@ public class SlotUI : MonoBehaviour
         }
     }
 
-    private void ClearSlot()
+    public void ClearSlot()
     {
         assignedSlot?.Clear();
         itemSprite.sprite = null;

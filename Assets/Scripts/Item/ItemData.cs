@@ -11,6 +11,12 @@ public class ItemData : ScriptableObject
     public Sprite icon;
     public int maxStackSize;
 
+    public int Id => id;
+    public string DisplayName => displayName;
+    public string Details => details;
+    public Sprite Icon => icon;
+    public int MaxStackSize => maxStackSize;
+
     public override bool Equals(object other)
     {
         return base.Equals(other);
