@@ -35,7 +35,7 @@ public class Inventory
         {
             foreach (var space in slot)
             {
-                if (space.hasSpace(amount))
+                if (space.hasSpaceFor(amount))
                 {
                     space.AddToSpace(amount);
                     OnInventorySlotChanged?.Invoke(space);

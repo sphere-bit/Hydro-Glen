@@ -6,28 +6,28 @@ using UnityEngine.UI;
 
 public class MouseItemData : MonoBehaviour
 {
-    public Image itemSprite;
-    public TextMeshProUGUI itemCount;
-    public Slot assignedSlot;
+    [field: SerializeField] public Image ItemSprite { get; private set; }
+    [field: SerializeField] public TextMeshProUGUI ItemCount { get; private set; }
+    [field: SerializeField] public Slot AssignedSlot { get; private set; }
 
     public void UpdateMouseSlot(Slot slot)
     {
-        assignedSlot.AssignItem(slot);
-        itemSprite.sprite = slot.ItemData.Icon;
-        itemCount.text = slot.StackSize.ToString();
-        itemSprite.color = Color.white;
+        AssignedSlot.AssignItem(slot);
+        ItemSprite.sprite = slot.ItemData.Icon;
+        ItemCount.text = slot.StackSize.ToString();
+        ItemSprite.color = Color.white;
     }
 
     private void Awake()
     {
-        itemSprite.color = Color.clear;
-        itemCount.text = "";
+        ItemSprite.color = Color.clear;
+        ItemCount.text = "";
     }
 
     private void Update()
     {
         // Has an item. 
-        if (assignedSlot.ItemData != null)
+        if (AssignedSlot.ItemData != null)
         {
             // Make object follow mouse.
             transform.position = Input.mousePosition;
@@ -43,10 +43,10 @@ public class MouseItemData : MonoBehaviour
 
     public void ClearSlot()
     {
-        assignedSlot.Clear();
-        itemCount.text = "";
-        itemSprite.sprite = null;
-        itemSprite.color = Color.clear;
+        AssignedSlot.Clear();
+        ItemCount.text = "";
+        ItemSprite.sprite = null;
+        ItemSprite.color = Color.clear;
     }
 
     public static bool IsPointerOverlapUIObject()

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6119608188360873188}
   - component: {fileID: 7501201253001303954}
   m_Layer: 3
-  m_Name: Cucumber
+  m_Name: Collectible
   m_TagString: Collectible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,5 +136,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59e49e07f9d96a49957c9470fd2d9e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpRadius: 1
-  itemData: {fileID: 11400000, guid: 42a93da99aaae4e4b84620c33d7d1635, type: 2}
+  PickUpRadius: 1
+  CollectedItemData: {fileID: 11400000, guid: 42a93da99aaae4e4b84620c33d7d1635, type: 2}

@@ -37,13 +37,13 @@ public class Slot
         stackSize = -1;
     }
 
-    public bool hasSpace(int addAmount, out int amountRemaining)
+    public bool hasSpaceFor(int addAmount, out int amountRemaining)
     {
         amountRemaining = itemData.maxStackSize - stackSize;
-        return hasSpace(addAmount);
+        return hasSpaceFor(addAmount);
     }
 
-    public bool hasSpace(int addAmount)
+    public bool hasSpaceFor(int addAmount)
     {
         if (stackSize + addAmount <= itemData.maxStackSize)
         {
