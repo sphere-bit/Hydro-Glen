@@ -21,7 +21,7 @@ public class Slot
     {
         return $"Slot-{Guid.NewGuid().ToString("N")}";
     }
-    public void Update(ItemData itemData, int stackSize)
+    public void UpdateSlot(ItemData itemData, int stackSize)
     {
         this.itemData = itemData;
         this.stackSize = stackSize;
@@ -37,13 +37,13 @@ public class Slot
         stackSize = -1;
     }
 
-    public bool isAvailable(int addAmount, out int amountRemaining)
+    public bool hasSpace(int addAmount, out int amountRemaining)
     {
         amountRemaining = itemData.maxStackSize - stackSize;
-        return isAvailable(addAmount);
+        return hasSpace(addAmount);
     }
 
-    public bool isAvailable(int addAmount)
+    public bool hasSpace(int addAmount)
     {
         if (stackSize + addAmount <= itemData.maxStackSize)
         {
@@ -64,6 +64,7 @@ public class Slot
 
     internal void AssignItem(Slot slot)
     {
+        // Check whether the slot contains the same item.
         if (itemData == slot.ItemData)
         {
             // Combine
@@ -96,18 +97,30 @@ public class Slot
         return true;
     }
 
-    internal bool OnSingleSplitStack(out Slot singleSplitStack)
+    internal bool OnSplitStack(bool isShiftKey, out Slot splitStack)
     {
+        // Called by InventoryDisplay on slot clicked by right mouse button
         if (stackSize <= 1)
         {
-            singleSplitStack = null;
+            splitStack = null;
             return false;
         }
 
-        Debug.Log($"prev {stackSize}");
-        RemoveFromSpace(1);
-        Debug.Log($"curr {stackSize}");
-        singleSplitStack = new Slot(itemData, 1);
+        // RMB + shift
+        if (!isShiftKey)
+        {
+            Debug.Log($"one split");
+            RemoveFromSpace(1);
+            splitStack = new Slot(itemData, 1);
+        }
+        // RMB only
+        else
+        {
+            Debug.Log($"half split");
+            int halfStack = Mathf.RoundToInt(stackSize / 2);
+            RemoveFromSpace(halfStack);
+            splitStack = new Slot(itemData, halfStack);
+        }
 
         return true;
     }

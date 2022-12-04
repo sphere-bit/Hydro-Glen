@@ -6379,10 +6379,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6652750646147824787, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
-      propertyPath: inventory.slots.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8813967846185962465, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
       propertyPath: m_RootOrder
       value: 10

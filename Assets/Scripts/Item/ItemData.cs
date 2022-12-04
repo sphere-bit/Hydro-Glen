@@ -3,7 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Inventory/Item Data")]
 public class ItemData : ScriptableObject
 {
-    // Data store for each item
+    // Data store for each item. An SO (Scriptable object)
+    // It could be inherited to have branched versions of items, eg. potions and equipment.
+
     public int id;
     public string displayName;
     [TextArea(4, 4)]
@@ -16,6 +18,7 @@ public class ItemData : ScriptableObject
     public string Details => details;
     public Sprite Icon => icon;
     public int MaxStackSize => maxStackSize;
+    public int sellValue;
 
     public override bool Equals(object other)
     {

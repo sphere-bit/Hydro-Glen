@@ -35,7 +35,7 @@ public class Inventory
         {
             foreach (var space in slot)
             {
-                if (space.isAvailable(amount))
+                if (space.hasSpace(amount))
                 {
                     space.AddToSpace(amount);
                     OnInventorySlotChanged?.Invoke(space);
@@ -46,7 +46,7 @@ public class Inventory
         // Gets the first available slot
         if (HasFreeSlot(out Slot freeSlot))
         {
-            freeSlot.Update(itemData, amount);
+            freeSlot.UpdateSlot(itemData, amount);
             OnInventorySlotChanged?.Invoke(freeSlot);
             return true;
         }
