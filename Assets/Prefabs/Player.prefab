@@ -75,10 +75,10 @@ GameObject:
   - component: {fileID: 8813967846185962256}
   - component: {fileID: 8813967846185962259}
   - component: {fileID: 8813967846185962258}
-  - component: {fileID: 6652750646147824787}
   - component: {fileID: 1944531858}
   - component: {fileID: 1944531859}
   - component: {fileID: 6299731985525226997}
+  - component: {fileID: 933297815356436283}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -222,21 +222,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6652750646147824787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813967846185962478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0f1d8b9a9ba4e4c8dd08d3786a3e53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 9
-  inventory:
-    slots: []
 --- !u!114 &1944531858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,3 +275,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   InteractionPointRadius: 0.5
+--- !u!114 &933297815356436283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813967846185962478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c915ea22c96ec284c9832911b6d6b629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySize: 9
+  primaryInventory:
+    slots: []
+  secondaryInventorySize: 30
+  secondaryInventory:
+    slots: []

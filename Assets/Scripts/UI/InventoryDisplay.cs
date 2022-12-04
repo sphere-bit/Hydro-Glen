@@ -14,8 +14,10 @@ public abstract class InventoryDisplay : MonoBehaviour
     {
         foreach (var slot in slotDict)
         {
+            // backend inventory slot
             if (slot.Value == updatedSlot)
             {
+                // UI representation of the slot value
                 slot.Key.UpdateSlotUI(updatedSlot);
             }
         }

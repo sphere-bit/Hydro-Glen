@@ -76,7 +76,7 @@ public class ItemHolder : MonoBehaviour
 
     IEnumerator StashItem(GameObject item)
     {
-        var inventory = transform.GetComponent<InventoryHolder>();
+        var inventory = transform.GetComponent<PlayerInventoryHolder>();
         if (!inventory)
         {
             Debug.Log("No inventory found.");
@@ -86,7 +86,7 @@ public class ItemHolder : MonoBehaviour
         ItemCollectible collectible = item.GetComponent<ItemCollectible>();
         itemData = collectible.ItemData;
 
-        if (inventory.Inventory.HasItemToAdd(itemData, 1))
+        if (inventory.HasItemToAdd(itemData, 1))
         {
             // print(itemData);
             Destroy(item);

@@ -11,7 +11,7 @@ public class StaticInventoryDisplay : InventoryDisplay
 
         if (inventoryHolder != null)
         {
-            inventory = inventoryHolder.Inventory;
+            inventory = inventoryHolder.PrimaryInventory;
             // Subscribe updateSlot function to the even 'OnInventorySlotChanged'
             inventory.OnInventorySlotChanged += UpdateSlot;
         }

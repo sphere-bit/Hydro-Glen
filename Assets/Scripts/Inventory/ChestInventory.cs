@@ -7,7 +7,7 @@ public class ChestInventory : InventoryHolder, IInteractable
 
     public void Interact(Interactor interactor, out bool hasInteracted)
     {
-        OnDynamicInventoryDisplayRequested?.Invoke(inventory);
+        OnDynamicInventoryDisplayRequested?.Invoke(primaryInventory);
         hasInteracted = true;
     }
 
