@@ -29,12 +29,7 @@ public class InventoryUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!inventoryPanel.gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.B))
-        {
-            // Open bag
-            DisplayInventory(new Inventory(30));
-        }
-        else if (inventoryPanel.gameObject.activeInHierarchy && (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.Escape)))
+        if (inventoryPanel.gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Closing bag...");
             // Close bag

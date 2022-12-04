@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Interactor
+public class Interactor : MonoBehaviour
 {
     public Transform InteractionPoint;
     public LayerMask InteractionLayer;
@@ -9,9 +9,9 @@ public class Interactor
 
     public void Update()
     {
-        var colliders = Physics.OverlapSphere(InteractionPoint.position, InteractionPointRadius, InteractionLayer);
+        var colliders = Physics2D.OverlapCircleAll(InteractionPoint.position, InteractionPointRadius, InteractionLayer);
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             for (int i = 0; i < colliders.Length; i++)
             {
@@ -19,14 +19,20 @@ public class Interactor
 
                 if (interactable != null)
                 {
-                    startInteraction(interactable);
+                    StartInteraction(interactable);
                 }
             }
         }
     }
 
-    private void startInteraction(IInteractable interactable)
+    void StartInteraction(IInteractable interactable)
     {
         interactable.Interact(this, out bool hasInteracted);
+        IsInteracting = true;
+    }
+
+    void EndInteraction()
+    {
+        IsInteracting = false;
     }
 }

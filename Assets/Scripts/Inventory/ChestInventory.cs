@@ -1,13 +1,9 @@
+using UnityEngine;
 using UnityEngine.Events;
 
 public class ChestInventory : InventoryHolder, IInteractable
 {
     public UnityAction<IInteractable> OnInteractionComplete { get; set; }
-
-    public void EndInteraction()
-    {
-        throw new System.NotImplementedException();
-    }
 
     public void Interact(Interactor interactor, out bool hasInteracted)
     {
@@ -15,15 +11,9 @@ public class ChestInventory : InventoryHolder, IInteractable
         hasInteracted = true;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void EndInteraction()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        // Do something if player moves away from interactable.
+        Debug.Log("Unimplemented: EndInteraction()");
     }
 }

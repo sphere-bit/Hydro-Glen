@@ -832,7 +832,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -923,7 +923,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -957,7 +957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
+  m_ShowDebugText: 1
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
@@ -2893,7 +2893,7 @@ GameObject:
   - component: {fileID: 960779938}
   - component: {fileID: 960779940}
   - component: {fileID: 960779941}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chest (S)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3005,7 +3005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ebdc3ee0f1ca94182b6b88cbad0414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0
+  size: 10
   inventory:
     slots: []
 --- !u!1001 &973451973
@@ -3278,7 +3278,7 @@ Transform:
   - {fileID: 531077636}
   - {fileID: 1644863549}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1063435233 stripped
 RectTransform:
@@ -3318,7 +3318,7 @@ RectTransform:
   m_Children:
   - {fileID: 8306784}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3434,7 +3434,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1147959476
 GameObject:
@@ -3556,7 +3556,7 @@ Transform:
   m_Children:
   - {fileID: 1720682100}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1167356046
 GameObject:
@@ -4400,7 +4400,8 @@ GameObject:
   - component: {fileID: 1432350701}
   - component: {fileID: 1432350700}
   - component: {fileID: 1432350702}
-  m_Layer: 0
+  - component: {fileID: 1432350703}
+  m_Layer: 6
   m_Name: Chest (M)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4500,6 +4501,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0.2
+--- !u!114 &1432350703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432350699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ebdc3ee0f1ca94182b6b88cbad0414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 30
+  inventory:
+    slots: []
 --- !u!1 &1446446175
 GameObject:
   m_ObjectHideFlags: 0
@@ -6536,6 +6552,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2296699337896432771, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 2296699337896432771, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296699337896432771, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296699337896432771, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7509564049800234215, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8813967846185962465, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
       propertyPath: m_RootOrder
       value: 10

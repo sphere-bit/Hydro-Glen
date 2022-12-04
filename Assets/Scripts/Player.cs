@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Vector2 movement;
     [SerializeField] private ItemHolder itemHolder;
+    [SerializeField] private Interactor interactor;
 
     // Start is called before the first frame update
     void Start()
@@ -32,17 +33,28 @@ public class Player : MonoBehaviour
 
     private void adjustitemHolderDirection()
     {
-        // Based on which direction the player is facing while idle, set the addition
-        // direction vector of the picked up collectible.
+        // Based on Sprites > Player, set the interaction trace/point and placed item direction
         string spriteName = GetComponent<SpriteRenderer>().sprite.name;
-        if (spriteName == "PlayerIdleDown")
+        if (spriteName.Contains("Down"))
+        {
             itemHolder.Direction = new Vector3(0, -1);
-        else if (spriteName == "PlayerIdleUp")
+            interactor.InteractionPoint.position = new Vector3(transform.position.x, transform.position.y - 1);
+        }
+        else if (spriteName.Contains("Up"))
+        {
             itemHolder.Direction = new Vector3(0, 1);
-        else if (spriteName == "PlayerIdleRight")
+            interactor.InteractionPoint.position = new Vector3(transform.position.x, transform.position.y + 1);
+        }
+        else if (spriteName.Contains("Right"))
+        {
             itemHolder.Direction = new Vector3(1, 0);
-        else if (spriteName == "PlayerIdleLeft")
+            interactor.InteractionPoint.position = new Vector3(transform.position.x + 1, transform.position.y);
+        }
+        else if (spriteName.Contains("Left"))
+        {
             itemHolder.Direction = new Vector3(-1, 0);
+            interactor.InteractionPoint.position = new Vector3(transform.position.x - 1, transform.position.y);
+        }
     }
 
     void FixedUpdate()
