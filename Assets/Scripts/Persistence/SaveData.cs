@@ -5,6 +5,6 @@ public class SaveData
     public SaveData()
     {
         // Save ChestInventory
-        this.chestDict = new SerializableDict<string, ChestSaveData>();
+        chestDict = new SerializableDict<string, ChestSaveData>();
     }
 }

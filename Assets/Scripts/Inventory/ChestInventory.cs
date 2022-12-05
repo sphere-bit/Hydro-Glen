@@ -12,8 +12,7 @@ public class ChestInventory : InventoryHolder, IInteractable
 
     private void Start()
     {
-        var chestSaveData = new ChestSaveData(primaryInventory, transform.position, transform.rotation);
-
+        ChestSaveData chestSaveData = new ChestSaveData(primaryInventory, transform.position, transform.rotation);
         SaveGameManager.gameData.chestDict.Add(GetComponent<Uid>().Id, chestSaveData);
     }
 
