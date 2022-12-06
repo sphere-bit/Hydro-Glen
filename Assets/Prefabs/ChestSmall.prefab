@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 372446094882980689}
   m_Layer: 6
   m_Name: ChestSmall
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,4 +140,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7dd14a6967d0bf4cb609c03e4ce25ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: b0696d41-dd11-416f-9751-c0ca5fe85cda
+  _id: d34ae6c5-ff58-49a6-8d0d-2725d84af9a6

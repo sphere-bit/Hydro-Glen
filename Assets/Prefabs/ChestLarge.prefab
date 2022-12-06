@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2484142597110834824}
   m_Layer: 6
   m_Name: ChestLarge
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,4 +140,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7dd14a6967d0bf4cb609c03e4ce25ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 6efa6d0d-5a4f-4d70-8ef9-cb2fa4eb6269
+  _id: 4a61a398-492c-42f8-be46-76192ab40445

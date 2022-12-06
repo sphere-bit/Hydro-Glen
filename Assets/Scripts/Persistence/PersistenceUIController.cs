@@ -19,7 +19,6 @@ public class PersistenceUIController : MonoBehaviour
 
     void DisplayPersistentMenu()
     {
-        Debug.Log($"Interact was pressed. Persistent menu shown. Panel: {PersistenceMenu.name}");
         PersistenceMenu.gameObject.SetActive(true);
     }
 

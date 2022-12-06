@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 [RequireComponent(typeof(Rigidbody2D))]
 public class ItemHolder : MonoBehaviour
 {
@@ -77,31 +78,33 @@ public class ItemHolder : MonoBehaviour
         itemHeld.transform.position = transform.position + new Vector3(0, -.5f, 0) + Direction;
         // Remove item from player
         itemHeld.transform.parent = null;
-        if (itemHeld.GetComponent<Rigidbody2D>())
-            itemHeld.GetComponent<Rigidbody2D>().simulated = true;
+
+        rb = itemHeld.GetComponent<Rigidbody2D>();
+        if (rb)
+            rb.simulated = true;
         // Toggle itemHeld.
         itemHeld = null;
     }
 
     IEnumerator StashItem(GameObject item)
     {
-        var inventory = transform.GetComponent<PlayerInventoryHolder>();
-        if (!inventory)
-        {
-            Debug.Log("No inventory found.");
-            yield return null;
-        }
-
         ItemCollectible collectible = item.GetComponent<ItemCollectible>();
         itemData = collectible.ItemData;
 
-        if (inventory.HasItemToAdd(itemData, 1))
+        var inventory = transform.GetComponent<PlayerInventoryHolder>();
+
+        if (!inventory)
         {
-            // print(itemData);
-            Destroy(item);
             yield return null;
         }
-        // No free space found. Drop the item back onto the ground.
+
+
+        if (inventory.HasItemToAdd(itemData, 1))
+        {
+            SaveGameManager.gameData.collectedItemIds.Add(collectible.Id);
+            Destroy(collectible.gameObject);
+            yield return null;
+        }
         else
         {
             Debug.Log("Inventory's full!");
