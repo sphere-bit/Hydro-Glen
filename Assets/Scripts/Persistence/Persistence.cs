@@ -13,7 +13,8 @@ public static class Persistence
 
     private static string directory = "/SaveData/";
     private static String timeStamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-    private static String filename = $"Slot_{timeStamp}.save";
+    // private static String filename = $"Slot_{timeStamp}.save";
+    private static String filename = $"Slot.save";
 
     public static bool Save(SaveData gameData)
     {
@@ -21,6 +22,9 @@ public static class Persistence
         // Windows Editor and Standalone Player: 
         // Application.persistentDataPath usually points to %userprofile%\AppData\LocalLow\<companyname>\<productname>
         string dir = Application.persistentDataPath + directory;
+
+        // copy dir to clipboard
+        GUIUtility.systemCopyBuffer = dir;
 
         if (!Directory.Exists(dir))
         {
@@ -45,10 +49,12 @@ public static class Persistence
         {
             string readJson = File.ReadAllText(fullPath);
             gameData = JsonUtility.FromJson<SaveData>(readJson);
+            Debug.Log($"Data loaded from file: {fullPath}.");
+            OnLoadGame?.Invoke(gameData);
         }
         else
         {
-            Debug.Log("> Save file is non-existent.");
+            Debug.Log($"> Non-existent save file: {fullPath}.");
         }
 
         return gameData;

@@ -5,13 +5,18 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class ItemHolder : MonoBehaviour
 {
+    [SerializeField] private float _throwSpeed;
+    [SerializeField] private float _throwDistance;
+
     public Transform heldPosition;
     public LayerMask pickUpMask;
     public Vector3 Direction { get; set; } // drop direction
+
     private ItemData itemData;
     private GameObject itemHeld;
-    [SerializeField] private float _throwSpeed;
-    [SerializeField] private float _throwDistance;
+    private Rigidbody2D rb;
+    private Vector3 lastPlayerPosition;
+    public Vector3 LastPlayerPosition => LastPlayerPosition;
 
     void Update()
     {
@@ -20,6 +25,7 @@ public class ItemHolder : MonoBehaviour
             if (itemHeld)
             {
                 DropItem();
+                lastPlayerPosition = transform.position;
             }
             else
             {
@@ -32,6 +38,7 @@ public class ItemHolder : MonoBehaviour
             {
                 StartCoroutine(ThrowItem(itemHeld));
                 itemHeld = null;
+                lastPlayerPosition = transform.position;
             }
         }
         else if (Input.GetKeyDown(KeyCode.Z))
@@ -55,9 +62,11 @@ public class ItemHolder : MonoBehaviour
             itemHeld.transform.position = heldPosition.position;
             // Make item follow player
             itemHeld.transform.parent = transform;
-            if (itemHeld.GetComponent<Rigidbody2D>())
+
+            rb = itemHeld.GetComponent<Rigidbody2D>();
+            if (rb)
             {
-                itemHeld.GetComponent<Rigidbody2D>().simulated = false;
+                rb.simulated = false;
             }
         }
     }
@@ -105,6 +114,8 @@ public class ItemHolder : MonoBehaviour
     {
         Vector3 startPos = item.transform.position;
         Vector3 endPos = transform.position + Direction * _throwDistance + new Vector3(0, -.5f, 0);
+
+        rb = item.GetComponent<Rigidbody2D>();
         // Detach item from player
         item.transform.parent = null;
 
@@ -114,7 +125,12 @@ public class ItemHolder : MonoBehaviour
             item.transform.position = Vector3.Lerp(startPos, endPos, i * _throwSpeed);
             yield return null;
         }
-        if (item.GetComponent<Rigidbody2D>())
-            item.GetComponent<Rigidbody2D>().simulated = true;
+
+        if (rb)
+        {
+            rb.simulated = true;
+        }
+
+        yield return null;
     }
 }

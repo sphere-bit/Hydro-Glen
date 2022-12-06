@@ -27,6 +27,7 @@ public class Interactor : MonoBehaviour
 
     void StartInteraction(IInteractable interactable)
     {
+        Debug.Log($"Interacted with {interactable}");
         interactable.Interact(this, out bool hasInteracted);
         IsInteracting = true;
     }

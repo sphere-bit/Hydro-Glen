@@ -14,7 +14,7 @@ TagManager:
   - Water
   - UI
   - Interactable
-  - 
+  - Obstacle
   - 
   - 
   - 
@@ -45,6 +45,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2888126419
+    locked: 0
+  - name: Interactable
+    uniqueID: 4154891519
     locked: 0
   - name: Hold
     uniqueID: 842766935

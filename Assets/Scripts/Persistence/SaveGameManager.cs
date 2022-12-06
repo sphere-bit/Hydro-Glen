@@ -22,6 +22,7 @@ public class SaveGameManager : MonoBehaviour
 
     public static void SaveData()
     {
+        // Called on click
         var gameSaveData = gameData;
 
         Persistence.Save(gameSaveData);
@@ -30,5 +31,11 @@ public class SaveGameManager : MonoBehaviour
     public static void LoadData(SaveData _gameData)
     {
         gameData = _gameData;
+    }
+
+    public static void TryLoadData()
+    {
+        // Called on click
+        gameData = Persistence.Load();
     }
 }

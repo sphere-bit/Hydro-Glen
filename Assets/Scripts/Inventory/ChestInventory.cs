@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Uid))]
 public class ChestInventory : InventoryHolder, IInteractable
 {
     protected override void Awake()
