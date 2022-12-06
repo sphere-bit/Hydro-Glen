@@ -234,12 +234,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d92592867240c49b4fc303ef4b422c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _throwSpeed: 0.4
+  _throwDistance: 5
   heldPosition: {fileID: 8813967845600922486}
   pickUpMask:
     serializedVersion: 2
     m_Bits: 8
-  _throwSpeed: 0.4
-  _throwDistance: 5
 --- !u!114 &1944531859
 MonoBehaviour:
   m_ObjectHideFlags: 0
