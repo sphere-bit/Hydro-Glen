@@ -17,7 +17,7 @@ public class ChestInventory : InventoryHolder, IInteractable
         SaveGameManager.gameData.chestDict.Add(GetComponent<Uid>().Id, chestSaveData);
     }
 
-    private void LoadInventory(SaveData gameData)
+    protected override void LoadInventory(SaveData gameData)
     {
         // Check the inventory of the chest with a uid 
         if (gameData.chestDict.TryGetValue(GetComponent<Uid>().Id, out ChestSaveData chestData))
@@ -34,7 +34,7 @@ public class ChestInventory : InventoryHolder, IInteractable
 
     public void Interact(Interactor interactor, out bool hasInteracted)
     {
-        OnDynamicInventoryDisplayRequested?.Invoke(primaryInventory);
+        OnDynamicInventoryDisplayRequested?.Invoke(primaryInventory, 0);
         hasInteracted = true;
     }
 

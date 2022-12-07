@@ -13,7 +13,7 @@ public class DynamicInventoryDisplay : InventoryDisplay
         base.Start();
     }
 
-    public void RefreshDynamicInventory(Inventory inventoryToDisplay)
+    public void RefreshDynamicInventory(Inventory inventoryToDisplay, int offset)
     {
         ClearSlots();
         inventory = inventoryToDisplay;
@@ -22,9 +22,9 @@ public class DynamicInventoryDisplay : InventoryDisplay
         {
             inventory.OnInventorySlotChanged += UpdateSlot;
         }
-        AssignSlot(inventoryToDisplay);
+        AssignSlot(inventoryToDisplay, offset: offset);
     }
-    public override void AssignSlot(Inventory inventoryToDisplay)
+    public override void AssignSlot(Inventory inventoryToDisplay, int offset)
     {
         slotDict = new Dictionary<SlotUI, Slot>();
 
@@ -33,7 +33,8 @@ public class DynamicInventoryDisplay : InventoryDisplay
             return;
         }
 
-        for (int i = 0; i < inventoryToDisplay.Size; i++)
+        // Start making inventory from the offset
+        for (int i = offset; i < inventoryToDisplay.Size; i++)
         {
             // parent as transform
             var uiSlot = Instantiate(slotPrefab, transform);

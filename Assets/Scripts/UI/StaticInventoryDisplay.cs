@@ -5,10 +5,19 @@ public class StaticInventoryDisplay : InventoryDisplay
 {
     [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] private SlotUI[] slots;
-    protected override void Start()
-    {
-        base.Start();
 
+    private void OnEnable()
+    {
+        PlayerInventoryHolder.OnPlayerInventoryChanged += RefreshStaticDisplay;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInventoryHolder.OnPlayerInventoryChanged -= RefreshStaticDisplay;
+    }
+
+    private void RefreshStaticDisplay()
+    {
         if (inventoryHolder != null)
         {
             inventory = inventoryHolder.PrimaryInventory;
@@ -20,19 +29,24 @@ public class StaticInventoryDisplay : InventoryDisplay
             Debug.LogWarning($"No inventory assigned to {this.gameObject}");
         }
 
-        AssignSlot(inventory);
+        AssignSlot(inventory, 0);
     }
-    public override void AssignSlot(Inventory inventoryToDisplay)
+
+    protected override void Start()
+    {
+        RefreshStaticDisplay();
+    }
+    public override void AssignSlot(Inventory inventoryToDisplay, int offset)
     {
         // throw new System.NotImplementedException();
         slotDict = new Dictionary<SlotUI, Slot>();
 
-        if (slots.Length != inventory.Size)
-        {
-            Debug.Log($"Slots out of sync on {this.gameObject}");
-        }
+        // if (slots.Length != inventory.Size)
+        // {
+        //     Debug.Log($"Slots out of sync on {this.gameObject}");
+        // }
 
-        for (int i = 0; i < inventory.Size; i++)
+        for (int i = 0; i < inventoryHolder.Offset; i++)
         {
             slotDict.Add(slots[i], inventory.Slots[i]);
             slots[i].Init(inventory.Slots[i]);

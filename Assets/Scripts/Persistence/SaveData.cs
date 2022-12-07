@@ -6,9 +6,11 @@ public class SaveData
     public SerializableDict<string, ChestSaveData> chestDict;
     public SerializableDict<string, ItemSaveData> activeItems;
     public List<string> collectedItemIds;
+    public InventorySaveData playerInventory;
 
     public SaveData()
     {
+        playerInventory = new InventorySaveData();
         collectedItemIds = new List<string>();
         // Save collectible items
         activeItems = new SerializableDict<string, ItemSaveData>();

@@ -9,7 +9,8 @@ public abstract class InventoryDisplay : MonoBehaviour
     public Inventory Inventory => inventory;
     public Dictionary<SlotUI, Slot> SlotDict => slotDict;
 
-    public abstract void AssignSlot(Inventory inventoryToDisplay);
+    // Offset for different inventory sizes.
+    public abstract void AssignSlot(Inventory inventoryToDisplay, int offset);
     protected virtual void UpdateSlot(Slot updatedSlot)
     {
         foreach (var slot in slotDict)

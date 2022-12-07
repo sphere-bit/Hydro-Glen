@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class InventoryUIController : MonoBehaviour
 {
-    public DynamicInventoryDisplay chestPanel;
+    [FormerlySerializedAs("chestPanel")] public DynamicInventoryDisplay inventoryPanel;
+    // public DynamicInventoryDisplay inventoryPanel;
     public DynamicInventoryDisplay playerBackpackPanel;
 
     public void Awake()
     {
-        chestPanel.gameObject.SetActive(false);
+        inventoryPanel.gameObject.SetActive(false);
         playerBackpackPanel.gameObject.SetActive(false);
     }
 
@@ -23,26 +25,26 @@ public class InventoryUIController : MonoBehaviour
         PlayerInventoryHolder.OnPlayerBackpackDisplayRequested -= DisplayPlayerBackpack;
     }
 
-    void DisplayInventory(Inventory inventory)
+    void DisplayInventory(Inventory inventory, int offset)
     {
-        Debug.Log($"Interact key was pressed. Inventory shown. Panel: {chestPanel.name}");
-        chestPanel.gameObject.SetActive(true);
-        chestPanel.RefreshDynamicInventory(inventory);
+        Debug.Log($"Interact key was pressed. Inventory shown. Panel: {inventoryPanel.name}");
+        inventoryPanel.gameObject.SetActive(true);
+        inventoryPanel.RefreshDynamicInventory(inventory, offset);
     }
-    void DisplayPlayerBackpack(Inventory inventory)
+    void DisplayPlayerBackpack(Inventory inventory, int offset)
     {
-        Debug.Log($"Interact was pressed. Backpack Inventory shown. Panel: {chestPanel.name}");
+        Debug.Log($"Interact was pressed. Backpack Inventory shown. Panel: {playerBackpackPanel.name}");
         playerBackpackPanel.gameObject.SetActive(true);
-        playerBackpackPanel.RefreshDynamicInventory(inventory);
+        playerBackpackPanel.RefreshDynamicInventory(inventory, offset);
     }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (chestPanel.gameObject.activeInHierarchy)
+            if (inventoryPanel.gameObject.activeInHierarchy)
             {
-                chestPanel.gameObject.SetActive(false);
+                inventoryPanel.gameObject.SetActive(false);
             }
 
             if (playerBackpackPanel.gameObject.activeInHierarchy)

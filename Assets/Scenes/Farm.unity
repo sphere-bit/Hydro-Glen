@@ -961,6 +961,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1812004829}
     m_Modifications:
+    - target: {fileID: 1996888505364671079, guid: f6d600ae57ea55e43b1bf0ac866f7020, type: 3}
+      propertyPath: _id
+      value: a850e736-8508-49f8-b096-11061342a9ff
+      objectReference: {fileID: 0}
     - target: {fileID: 7472343404054775055, guid: f6d600ae57ea55e43b1bf0ac866f7020, type: 3}
       propertyPath: m_Name
       value: Cucumber (1)
@@ -1216,6 +1220,10 @@ PrefabInstance:
     - target: {fileID: 3188492426976894701, guid: 84f58552fdf0f954480da05bd0ea28fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781086729821909618, guid: 84f58552fdf0f954480da05bd0ea28fc, type: 3}
+      propertyPath: _id
+      value: cc3a673b-1372-4b6f-8f76-4617d9a7591d
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84f58552fdf0f954480da05bd0ea28fc, type: 3}
@@ -3136,6 +3144,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5781086729821909618, guid: 84f58552fdf0f954480da05bd0ea28fc, type: 3}
+      propertyPath: _id
+      value: 1547d4f4-6f99-4299-86c4-26d9d24fe46a
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84f58552fdf0f954480da05bd0ea28fc, type: 3}
 --- !u!4 &611406713 stripped
@@ -3226,6 +3238,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1812004829}
     m_Modifications:
+    - target: {fileID: 1996888505364671079, guid: f6d600ae57ea55e43b1bf0ac866f7020, type: 3}
+      propertyPath: _id
+      value: b40d6b7e-54c6-435e-a184-37481a307cf4
+      objectReference: {fileID: 0}
     - target: {fileID: 7472343404054775055, guid: f6d600ae57ea55e43b1bf0ac866f7020, type: 3}
       propertyPath: m_Name
       value: Cucumber
@@ -3469,6 +3485,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1812004829}
     m_Modifications:
+    - target: {fileID: 1996888505364671079, guid: f6d600ae57ea55e43b1bf0ac866f7020, type: 3}
+      propertyPath: _id
+      value: b522e7c4-3d0f-4c92-9e52-2e5bde02d6ed
+      objectReference: {fileID: 0}
     - target: {fileID: 7472343404054775055, guid: f6d600ae57ea55e43b1bf0ac866f7020, type: 3}
       propertyPath: m_Name
       value: Cucumber (2)
@@ -4686,7 +4706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012a3231a798f904b934cabf969b5579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chestPanel: {fileID: 255491090}
+  inventoryPanel: {fileID: 255491090}
   playerBackpackPanel: {fileID: 444043754}
 --- !u!1 &1446446175
 GameObject:
@@ -7895,6 +7915,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5781086729821909618, guid: 84f58552fdf0f954480da05bd0ea28fc, type: 3}
+      propertyPath: _id
+      value: 9593f84b-799e-47c8-9f35-187e8c57b4bd
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84f58552fdf0f954480da05bd0ea28fc, type: 3}
 --- !u!4 &2034978374 stripped
@@ -8048,7 +8072,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 372446094882980689, guid: 6c1c217ba6461f5408c058c5e94732dd, type: 3}
       propertyPath: _id
-      value: 014d17a8-be81-44e6-95da-827e483fc7a7
+      value: c77ca53c-6b9f-4046-b45e-fa3001e1f6eb
       objectReference: {fileID: 0}
     - target: {fileID: 372446094882980692, guid: 6c1c217ba6461f5408c058c5e94732dd, type: 3}
       propertyPath: m_RootOrder
@@ -8098,10 +8122,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChestSmall
       objectReference: {fileID: 0}
-    - target: {fileID: 372446094882980694, guid: 6c1c217ba6461f5408c058c5e94732dd, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c1c217ba6461f5408c058c5e94732dd, type: 3}
 --- !u!1001 &2484142595856058744
@@ -8113,15 +8133,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2484142597110834824, guid: 1f82a819ed1e8bf47a971da829faf3a6, type: 3}
       propertyPath: _id
-      value: e73d8761-570b-414b-b82f-0eecad3c8301
+      value: 7e3f6eb3-d590-4470-8784-a869492f0c5d
       objectReference: {fileID: 0}
     - target: {fileID: 2484142597110834835, guid: 1f82a819ed1e8bf47a971da829faf3a6, type: 3}
       propertyPath: m_Name
       value: ChestLarge
-      objectReference: {fileID: 0}
-    - target: {fileID: 2484142597110834835, guid: 1f82a819ed1e8bf47a971da829faf3a6, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 2484142597110834837, guid: 1f82a819ed1e8bf47a971da829faf3a6, type: 3}
       propertyPath: m_RootOrder
@@ -8223,10 +8239,6 @@ PrefabInstance:
     - target: {fileID: 3570342424402098342, guid: 593dff2f0e8276d44bcad9a441dd77e6, type: 3}
       propertyPath: m_Name
       value: SavePoint
-      objectReference: {fileID: 0}
-    - target: {fileID: 3570342424402098342, guid: 593dff2f0e8276d44bcad9a441dd77e6, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 593dff2f0e8276d44bcad9a441dd77e6, type: 3}
