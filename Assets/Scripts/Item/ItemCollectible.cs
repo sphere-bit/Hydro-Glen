@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 
 // To enable holding
-[RequireComponent(typeof(Rigidbody2D))]
+// [RequireComponent(typeof(Rigidbody2D))]
 // To detect collision with obstacles
 [RequireComponent(typeof(CircleCollider2D))]
 // To enable item data to persist
@@ -12,12 +12,15 @@ using UnityEngine;
 [Serializable]
 public class ItemCollectible : MonoBehaviour
 {
-    public float pickUpRadius = 1f;
     public ItemData itemData;
-
     private CircleCollider2D collider;
-    private Rigidbody2D rb;
+    private bool onTrigger = false;
+    // private Rigidbody2D rb;
     private string id;
+    private PlayerInventoryHolder inventoryTarget;
+    private Vector3 playerPosition;
+    [SerializeField] private float collectSpeed;
+
     public string Id => id;
 
     public ItemData ItemData => itemData;
@@ -35,17 +38,21 @@ public class ItemCollectible : MonoBehaviour
 
     public void LoadCollectible(SaveData gameData)
     {
-        if (gameData.activeItems.TryGetValue(GetComponent<Uid>().Id, out ItemSaveData itemSaveData))
-        {
-            this.itemData = itemSaveData.inventoryItemData;
-            this.transform.position = itemSaveData.position;
-            this.transform.rotation = itemSaveData.rotation;
-        }
-        else
+        if (gameData.collectedItemIds.Contains(id))
         {
             Destroy(this.gameObject);
         }
 
+        // if (gameData.activeItems.TryGetValue(GetComponent<Uid>().Id, out ItemSaveData itemSaveData))
+        // {
+        //     this.itemData = itemSaveData.inventoryItemData;
+        //     this.transform.position = itemSaveData.position;
+        //     this.transform.rotation = itemSaveData.rotation;
+        // }
+        // else
+        // {
+        //     Destroy(this.gameObject);
+        // }
     }
 
 
@@ -60,29 +67,61 @@ public class ItemCollectible : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
+        if (other.gameObject.tag == "Player")
         {
-            AdjustItemPosition();
+            inventoryTarget = other.transform.GetComponent<PlayerInventoryHolder>();
+            playerPosition = other.transform.position;
+            onTrigger = true;
         }
     }
+
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
+        if (other.gameObject.tag == "Player")
         {
-            AdjustItemPosition();
+            inventoryTarget = other.transform.GetComponent<PlayerInventoryHolder>();
+            playerPosition = other.transform.position;
+
+            if (!onTrigger && inventoryTarget.HasItemToAdd(itemData, 1))
+            {
+                onTrigger = true;
+                transform.localScale = Vector2.MoveTowards(transform.localScale, new Vector2(.5f, .5f), Time.deltaTime * collectSpeed);
+                SaveGameManager.gameData.collectedItemIds.Add(id);
+                Destroy(gameObject);
+            }
+            else
+            {
+                transform.localScale = new Vector2(1f, 1f);
+            }
         }
     }
 
-    private void AdjustItemPosition()
+    void Update()
     {
-        // Ensure the item is not placed on an obstacle
-        // GameObject obstacles = GameObject.FindGameObjectWithTag("Obstacle");
+        if (onTrigger)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, playerPosition, Time.deltaTime * collectSpeed);
+            transform.localScale = Vector2.MoveTowards(transform.localScale, new Vector2(.5f, .5f), Time.deltaTime * collectSpeed);
+            if (Vector2.Distance(transform.position, playerPosition) <= 1f)
+            {
+                if (!inventoryTarget)
+                {
+                    return;
+                }
 
-        Player player = FindObjectOfType<Player>();
-        Vector2 freePosition = player.transform.position;
-        this.transform.position = freePosition;
-        this.transform.parent = null;
-        return;
+                if (inventoryTarget.HasItemToAdd(itemData, 1))
+                {
+                    SaveGameManager.gameData.collectedItemIds.Add(id);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    transform.localScale = new Vector2(1f, 1f);
+                    // stop item from following player
+                    onTrigger = false;
+                }
+            }
+        }
     }
 }
 

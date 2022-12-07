@@ -12,7 +12,6 @@ public class Slot : ISerializationCallbackReceiver
     public ItemData ItemData => itemData;
     public int StackSize => stackSize;
 
-
     public Slot(ItemData itemData, int stackSize)
     {
         this.itemData = itemData;

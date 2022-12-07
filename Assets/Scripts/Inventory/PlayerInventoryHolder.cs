@@ -45,10 +45,6 @@ public class PlayerInventoryHolder : InventoryHolder
         {
             return true;
         }
-        // else if (secondaryInventory.HasItemToAdd(data, amount))
-        // {
-        //     return true;
-        // }
 
         return false;
     }
