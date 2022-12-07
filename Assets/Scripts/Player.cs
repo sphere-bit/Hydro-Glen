@@ -38,22 +38,22 @@ public class Player : MonoBehaviour
         if (spriteName.Contains("Down"))
         {
             itemHolder.Direction = new Vector3(0, -1);
-            interactor.InteractionPoint.position = new Vector3(transform.position.x, transform.position.y - 1);
+            interactor.InteractionPoint.position = new Vector3(transform.position.x, transform.position.y - .5f);
         }
         else if (spriteName.Contains("Up"))
         {
             itemHolder.Direction = new Vector3(0, 1);
-            interactor.InteractionPoint.position = new Vector3(transform.position.x, transform.position.y + 1);
+            interactor.InteractionPoint.position = new Vector3(transform.position.x, transform.position.y + .5f);
         }
         else if (spriteName.Contains("Right"))
         {
             itemHolder.Direction = new Vector3(1, 0);
-            interactor.InteractionPoint.position = new Vector3(transform.position.x + 1, transform.position.y);
+            interactor.InteractionPoint.position = new Vector3(transform.position.x + .5f, transform.position.y - 1);
         }
         else if (spriteName.Contains("Left"))
         {
             itemHolder.Direction = new Vector3(-1, 0);
-            interactor.InteractionPoint.position = new Vector3(transform.position.x - 1, transform.position.y);
+            interactor.InteractionPoint.position = new Vector3(transform.position.x - .5f, transform.position.y - 1);
         }
     }
 

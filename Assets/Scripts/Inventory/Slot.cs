@@ -2,18 +2,21 @@ using System;
 using UnityEngine;
 
 [System.Serializable]
-public class Slot
+public class Slot : ISerializationCallbackReceiver
 {
     // A slot is list which has space.
-    [SerializeField] private ItemData itemData;
-    public ItemData ItemData => itemData;
+    [NonSerialized] private ItemData itemData;
+    [SerializeField] private int itemId = -1;
     [SerializeField] private int stackSize; // How many items we have currently.
+
+    public ItemData ItemData => itemData;
     public int StackSize => stackSize;
 
 
     public Slot(ItemData itemData, int stackSize)
     {
         this.itemData = itemData;
+        this.itemId = itemData.Id;
         this.stackSize = stackSize;
     }
 
@@ -24,28 +27,30 @@ public class Slot
     public void UpdateSlot(ItemData itemData, int stackSize)
     {
         this.itemData = itemData;
+        this.itemId = itemData.Id;
         this.stackSize = stackSize;
     }
     public Slot()
     {
-        Clear();
+        ClearSlot();
     }
 
-    public void Clear()
+    public void ClearSlot()
     {
         itemData = null;
+        itemId = -1;
         stackSize = -1;
     }
 
     public bool hasSpaceFor(int addAmount, out int amountRemaining)
     {
-        amountRemaining = itemData.maxStackSize - stackSize;
+        amountRemaining = itemData.MaxStackSize - stackSize;
         return hasSpaceFor(addAmount);
     }
 
     public bool hasSpaceFor(int addAmount)
     {
-        if (stackSize + addAmount <= itemData.maxStackSize)
+        if (stackSize + addAmount <= itemData.MaxStackSize)
         {
             return true;
         }
@@ -74,6 +79,7 @@ public class Slot
         {
             // If items are different, swap with mouse's slot.
             itemData = slot.itemData;
+            itemId = itemData.Id;
             stackSize = 0;
             AddToSpace(slot.stackSize);
         }
@@ -123,6 +129,24 @@ public class Slot
         }
 
         return true;
+    }
+
+    public void OnBeforeSerialize()
+    {
+
+    }
+
+    public void OnAfterDeserialize()
+    {
+        if (itemId == -1)
+        {
+            return;
+        }
+
+        // load resources from folder
+        var db = Resources.Load<Database>("Database");
+        itemData = db.GetItem(itemId);
+
     }
 }
 // public class Slot : IPointerClickHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler

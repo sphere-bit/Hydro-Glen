@@ -39,7 +39,7 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler
     {
         if (slot.ItemData != null)
         {
-            itemSprite.sprite = slot.ItemData.icon;
+            itemSprite.sprite = slot.ItemData.Icon;
             itemSprite.color = Color.white;
         }
         else
@@ -66,7 +66,7 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler
 
     public void ClearSlot()
     {
-        assignedSlot?.Clear();
+        assignedSlot?.ClearSlot();
         itemSprite.sprite = null;
         itemSprite.color = Color.clear;
         itemCount.text = "";

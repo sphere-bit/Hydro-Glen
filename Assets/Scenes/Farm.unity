@@ -4021,7 +4021,7 @@ MonoBehaviour:
   <ItemSprite>k__BackingField: {fileID: 1446446177}
   <ItemCount>k__BackingField: {fileID: 2008007031}
   <AssignedSlot>k__BackingField:
-    itemData: {fileID: 0}
+    itemId: -1
     stackSize: -1
 --- !u!1 &1161167265
 GameObject:
@@ -6746,9 +6746,13 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 6299731985525226997, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
+      propertyPath: InteractionPointRadius
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7509564049800234215, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8813967846185962465, guid: cb0c9e65c500ffb408a40a45756c1fa5, type: 3}
       propertyPath: m_RootOrder
@@ -8072,7 +8076,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 372446094882980689, guid: 6c1c217ba6461f5408c058c5e94732dd, type: 3}
       propertyPath: _id
-      value: c77ca53c-6b9f-4046-b45e-fa3001e1f6eb
+      value: 5bedb468-a30e-4664-9adb-74799b0cb66a
       objectReference: {fileID: 0}
     - target: {fileID: 372446094882980692, guid: 6c1c217ba6461f5408c058c5e94732dd, type: 3}
       propertyPath: m_RootOrder
@@ -8133,7 +8137,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2484142597110834824, guid: 1f82a819ed1e8bf47a971da829faf3a6, type: 3}
       propertyPath: _id
-      value: 7e3f6eb3-d590-4470-8784-a869492f0c5d
+      value: 7036e9d0-fb79-4ef7-b24d-f3294e4b6136
       objectReference: {fileID: 0}
     - target: {fileID: 2484142597110834835, guid: 1f82a819ed1e8bf47a971da829faf3a6, type: 3}
       propertyPath: m_Name

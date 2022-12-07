@@ -6,18 +6,13 @@ public class ItemData : ScriptableObject
     // Data store for each item. An SO (Scriptable object)
     // It could be inherited to have branched versions of items, eg. potions and equipment.
 
-    public int id;
-    public string displayName;
+    public int Id = -1;
+    public string DisplayName;
     [TextArea(4, 4)]
-    public string details;
-    public Sprite icon;
-    public int maxStackSize;
+    public string Details;
+    public Sprite Icon;
+    public int MaxStackSize;
 
-    public int Id => id;
-    public string DisplayName => displayName;
-    public string Details => details;
-    public Sprite Icon => icon;
-    public int MaxStackSize => maxStackSize;
     public int sellValue;
 
     public override bool Equals(object other)
@@ -32,6 +27,6 @@ public class ItemData : ScriptableObject
 
     public override string ToString()
     {
-        return "[id] " + id.ToString() + " [displayName] " + displayName.ToString() + " [details] " + details.ToString() + " [icon] " + icon.ToString() + " [maxStackSize] " + maxStackSize.ToString();
+        return "[id] " + Id.ToString() + " [displayName] " + DisplayName.ToString() + " [details] " + Details.ToString() + " [icon] " + Icon.ToString() + " [maxStackSize] " + MaxStackSize.ToString();
     }
 }
