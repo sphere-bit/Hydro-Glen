@@ -16,5 +16,6 @@ MonoBehaviour:
   DisplayName: Cucumber
   Details: 
   Icon: {fileID: 21300000, guid: 8ab46d63d2d55d54ba094a88e0a12fe9, type: 3}
-  MaxStackSize: 1
+  MaxStackSize: 9
   sellValue: 0
+  ItemPrefab: {fileID: 6577420732859598450, guid: f6d600ae57ea55e43b1bf0ac866f7020, type: 3}

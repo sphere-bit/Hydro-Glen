@@ -7,9 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2947729106716539783, guid: ec5d53a737f1d41418718a30664a5067, type: 3}
+      propertyPath: _id
+      value: a474286a-a2b2-4044-93b9-3855d1eebbc2
+      objectReference: {fileID: 0}
     - target: {fileID: 6119608188360873199, guid: ec5d53a737f1d41418718a30664a5067, type: 3}
       propertyPath: m_Name
-      value: Cucumber (1)
+      value: Cucumber
       objectReference: {fileID: 0}
     - target: {fileID: 6119608188360873752, guid: ec5d53a737f1d41418718a30664a5067, type: 3}
       propertyPath: m_RootOrder

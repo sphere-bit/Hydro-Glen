@@ -16,5 +16,6 @@ MonoBehaviour:
   DisplayName: Cucumber seeds
   Details: 
   Icon: {fileID: 21300000, guid: a0ebb8257c8aa184b9c2645956b7b455, type: 3}
-  MaxStackSize: 0
+  MaxStackSize: 9
   sellValue: 0
+  ItemPrefab: {fileID: 1210172020666588775, guid: 84f58552fdf0f954480da05bd0ea28fc, type: 3}

@@ -24,6 +24,11 @@ public class PersistenceUIController : MonoBehaviour
 
     void Update()
     {
+        if (!Interactor.IsInteracting)
+        {
+            PersistenceMenu.gameObject.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape) && PersistenceMenu.gameObject.activeInHierarchy)
         {
             PersistenceMenu.gameObject.SetActive(false);

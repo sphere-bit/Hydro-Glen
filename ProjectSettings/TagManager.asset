@@ -10,7 +10,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Hold
+  - ItemDrop
   - Water
   - UI
   - Interactable

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class Slot : ISerializationCallbackReceiver
 {
     // A slot is list which has space.

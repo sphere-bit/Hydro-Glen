@@ -8,13 +8,17 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Uid : MonoBehaviour
 {
-    [ReadOnly, SerializeField] private string _id = Guid.NewGuid().ToString();
+    [ReadOnly, SerializeField] private string _id;
     [SerializeField] private static SerializableDict<string, GameObject> idDatastore = new SerializableDict<string, GameObject>();
 
     public string Id => _id;
 
-    private void OnValidate()
+    private void Awake()
     {
+        if (idDatastore == null)
+        {
+            idDatastore = new SerializableDict<string, GameObject>();
+        }
         if (idDatastore.ContainsKey(_id))
         {
             Generate();

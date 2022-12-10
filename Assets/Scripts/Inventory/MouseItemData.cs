@@ -13,8 +13,13 @@ public class MouseItemData : MonoBehaviour
     public void UpdateMouseSlot(Slot slot)
     {
         AssignedSlot.AssignItem(slot);
-        ItemSprite.sprite = slot.ItemData.Icon;
-        ItemCount.text = slot.StackSize.ToString();
+        UpdateMouseSlot();
+    }
+
+    public void UpdateMouseSlot()
+    {
+        ItemSprite.sprite = AssignedSlot.ItemData.Icon;
+        ItemCount.text = AssignedSlot.StackSize.ToString();
         ItemSprite.color = Color.white;
     }
 
@@ -35,8 +40,24 @@ public class MouseItemData : MonoBehaviour
             // Check where primary (left) mouse button is clicked
             if (Input.GetMouseButton(0) && !IsPointerOverlapUIObject())
             {
-                Debug.Log("Primary left click was pressed and no overlapping UI object.");
-                ClearSlot();
+                if (AssignedSlot.ItemData.ItemPrefab != null)
+                {
+                    BoxCollider2D playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+                    Vector2 playerPosition = new Vector2(playerCollider.transform.position.x, playerCollider.transform.position.y);
+                    Vector3 dropPosition = playerCollider.offset + playerPosition + new Vector2(1, -1);
+
+                    Instantiate(AssignedSlot.ItemData.ItemPrefab, dropPosition, Quaternion.identity);
+
+                    if (AssignedSlot.StackSize > 1)
+                    {
+                        AssignedSlot.AddToSpace(-1);
+                        UpdateMouseSlot();
+                    }
+                    else
+                    {
+                        ClearSlot();
+                    }
+                }
             }
         }
     }

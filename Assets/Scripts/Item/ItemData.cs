@@ -12,8 +12,8 @@ public class ItemData : ScriptableObject
     public string Details;
     public Sprite Icon;
     public int MaxStackSize;
-
     public int sellValue;
+    public ItemCollectible ItemPrefab;
 
     public override bool Equals(object other)
     {

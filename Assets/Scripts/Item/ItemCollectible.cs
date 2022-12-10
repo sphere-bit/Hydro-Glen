@@ -30,16 +30,33 @@ public class ItemCollectible : MonoBehaviour
         Persistence.OnLoadGame += LoadCollectible;
     }
 
+    private ItemCollectible GetItemOfId(string id)
+    {
+        if (id == this.id)
+        {
+            return this;
+        }
+        return null;
+    }
+
     private void Start()
     {
+        id = GetComponent<Uid>().Id;
         ItemSaveData itemSaveData = new ItemSaveData(itemData, transform.position, transform.rotation);
-        SaveGameManager.gameData.activeItems.Add(key: GetComponent<Uid>().Id, itemSaveData);
+
+        // Add item to active items list
+        if (!SaveGameManager.gameData.activeItems.ContainsKey(id))
+        {
+            SaveGameManager.gameData.activeItems.Add(id, itemSaveData);
+        }
     }
 
     public void LoadCollectible(SaveData gameData)
     {
-        if (gameData.collectedItemIds.Contains(id))
+        // gameData is an overload parameter that matches UnityAction<SaveData>
+        if (gameData.collectedItemIds.Contains(item: id))
         {
+            Debug.Log($"Destroyed {this.gameObject.name}");
             Destroy(this.gameObject);
         }
 
@@ -58,9 +75,9 @@ public class ItemCollectible : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (SaveGameManager.gameData.activeItems.ContainsKey(GetComponent<Uid>().Id))
+        if (SaveGameManager.gameData.activeItems.ContainsKey(id))
         {
-            SaveGameManager.gameData.activeItems.Remove(GetComponent<Uid>().Id);
+            SaveGameManager.gameData.activeItems.Remove(id);
         }
         Persistence.OnLoadGame -= LoadCollectible;
     }
@@ -79,7 +96,6 @@ public class ItemCollectible : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            inventoryTarget = other.transform.GetComponent<PlayerInventoryHolder>();
             playerPosition = other.transform.position;
 
             if (!onTrigger && inventoryTarget.HasItemToAdd(itemData, 1))
@@ -98,28 +114,31 @@ public class ItemCollectible : MonoBehaviour
 
     void Update()
     {
-        if (onTrigger)
+        if (!onTrigger)
         {
-            transform.position = Vector2.MoveTowards(transform.position, playerPosition, Time.deltaTime * collectSpeed);
-            transform.localScale = Vector2.MoveTowards(transform.localScale, new Vector2(.5f, .5f), Time.deltaTime * collectSpeed);
-            if (Vector2.Distance(transform.position, playerPosition) <= 1f)
-            {
-                if (!inventoryTarget)
-                {
-                    return;
-                }
+            return;
+        }
 
-                if (inventoryTarget.HasItemToAdd(itemData, 1))
-                {
-                    SaveGameManager.gameData.collectedItemIds.Add(id);
-                    Destroy(gameObject);
-                }
-                else
-                {
-                    transform.localScale = new Vector2(1f, 1f);
-                    // stop item from following player
-                    onTrigger = false;
-                }
+        transform.position = Vector2.MoveTowards(transform.position, playerPosition, Time.deltaTime * collectSpeed);
+        transform.localScale = Vector2.MoveTowards(transform.localScale, new Vector2(.5f, .5f), Time.deltaTime * collectSpeed);
+
+        if (Vector2.Distance(transform.position, playerPosition) <= 1f)
+        {
+            if (!inventoryTarget)
+            {
+                return;
+            }
+
+            if (inventoryTarget.HasItemToAdd(itemData, 1))
+            {
+                SaveGameManager.gameData.collectedItemIds.Add(id);
+                Destroy(gameObject);
+            }
+            else
+            {
+                transform.localScale = new Vector2(1f, 1f);
+                // stop item from following player
+                onTrigger = false;
             }
         }
     }

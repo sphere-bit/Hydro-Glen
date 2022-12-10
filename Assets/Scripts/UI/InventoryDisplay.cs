@@ -80,7 +80,6 @@ public abstract class InventoryDisplay : MonoBehaviour
 
     public void OnSlotLeftClicked(SlotUI clickedUISlot)
     {
-        Debug.Log("Left-click pressed");
         // Clicked slot (assigned slot) has an item; mouse doesn't have an item:
         if (clickedUISlot.AssignedSlot.ItemData != null && mouseInventoryItem.AssignedSlot.ItemData == null)
         {
