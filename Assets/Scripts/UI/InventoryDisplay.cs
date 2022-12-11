@@ -50,10 +50,8 @@ public abstract class InventoryDisplay : MonoBehaviour
         else if (clickedUISlot.AssignedSlot.ItemData != null)
         {
             // Check whether slots contain the same item type and whether the clicked slot has space
-            if (!isSameItem && !clickedUISlot.AssignedSlot.hasSpaceFor(mouseInventoryItem.AssignedSlot.StackSize))
-            {
-                return;
-            }
+            if (!isSameItem) return;
+            if (!clickedUISlot.AssignedSlot.hasSpaceFor(mouseInventoryItem.AssignedSlot.StackSize)) return;
 
             // Split
             if (mouseInventoryItem.AssignedSlot.OnSplitStack(isShiftKey, out Slot splitStack))

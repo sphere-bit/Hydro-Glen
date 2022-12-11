@@ -21,6 +21,9 @@ public class MouseItemData : MonoBehaviour
         ItemSprite.sprite = AssignedSlot.ItemData.Icon;
         ItemCount.text = AssignedSlot.StackSize.ToString();
         ItemSprite.color = Color.white;
+        Color tmp = ItemSprite.color;
+        tmp.a = .5f;
+        ItemSprite.color = tmp;
     }
 
     private void Awake()
@@ -40,6 +43,7 @@ public class MouseItemData : MonoBehaviour
             // Check where primary (left) mouse button is clicked
             if (Input.GetMouseButton(0) && !IsPointerOverlapUIObject())
             {
+                // Drop item on the ground by instantiating a new prefab stored in itemdata
                 if (AssignedSlot.ItemData.ItemPrefab != null)
                 {
                     BoxCollider2D playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();

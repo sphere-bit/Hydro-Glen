@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SlotUI : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image itemSprite;
+    [SerializeField] private GameObject highlight;
     [SerializeField] private TextMeshProUGUI itemCount;
     [SerializeField] private Slot assignedSlot;
     private Button button;
@@ -19,6 +20,14 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler
         button = GetComponent<Button>();
         parentInventoryDisplay = transform.parent.GetComponent<InventoryDisplay>();
     }
+
+    public void ToggleHighlight()
+    {
+        // If currently active, set not active
+        // If not active, set active.
+        highlight.SetActive(!highlight.activeInHierarchy);
+    }
+
     private void OnUISlotLeftClick()
     {
         // Access display class function

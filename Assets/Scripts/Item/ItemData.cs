@@ -15,6 +15,11 @@ public class ItemData : ScriptableObject
     public int sellValue;
     public ItemCollectible ItemPrefab;
 
+    public void UseItem()
+    {
+        Debug.Log("Unimplemented use item()");
+    }
+
     public override bool Equals(object other)
     {
         return base.Equals(other);
