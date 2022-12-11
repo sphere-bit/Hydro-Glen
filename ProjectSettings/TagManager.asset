@@ -38,7 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - MouseCursor
   m_SortingLayers:
   - name: Default
     uniqueID: 0
@@ -51,4 +51,7 @@ TagManager:
     locked: 0
   - name: Hold
     uniqueID: 842766935
+    locked: 0
+  - name: MouseCursor
+    uniqueID: 2901301573
     locked: 0
