@@ -17,6 +17,7 @@ public class ItemData : ScriptableObject
 
     public void UseItem()
     {
+        // Make a new scriptable object that inherits from this ItemData class
         Debug.Log("Unimplemented use item()");
     }
 

@@ -90,6 +90,21 @@ public class PocketDisplay : StaticInventoryDisplay
         {
             SetIndex(11);
         }
+
+        if (Input.GetMouseButton(1))
+        {
+            UseItem();
+        }
+    }
+
+    private void UseItem()
+    {
+        // Access slot item
+        if (slots[currSlotIndex].AssignedSlot.ItemData != null)
+        {
+            slots[currSlotIndex].AssignedSlot.ItemData.UseItem();
+            Debug.Log(slots[currSlotIndex].AssignedSlot.ItemData);
+        }
     }
 
     private void ChangeIndex(int direction)
@@ -129,5 +144,6 @@ public class PocketDisplay : StaticInventoryDisplay
 
         currSlotIndex = newIndex;
         slots[currSlotIndex].ToggleHighlight();
+
     }
 }

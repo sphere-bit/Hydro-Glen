@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Health : MonoBehaviour
@@ -17,12 +18,11 @@ public class Health : MonoBehaviour
     }
 
     // Update is called once per frame
-    [System.Obsolete]
     void Update()
     {
         if (currHealth <= 0)
         {
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
